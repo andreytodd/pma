@@ -1,0 +1,10 @@
+<form (submit)="signUp()" [formGroup]="newUserForm">
+  <label>Name:</label>
+  <input type="text"  placeholder="Name" formControlName="name">
+  <label>Login:</label>
+  <input type="text"  placeholder="Login" formControlName="login">
+  <label>Password:</label>
+  <input type="text"  placeholder="Password" formControlName="password">
+  <button type="submit">Sign Up</button>
+</form>
+

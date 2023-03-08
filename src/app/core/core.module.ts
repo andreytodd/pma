@@ -3,10 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {CoreRoutingModule} from "./core-routing.module";
-
-
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -17,8 +14,7 @@ import {CoreRoutingModule} from "./core-routing.module";
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
-    CoreRoutingModule
+    RouterLink,
   ],
   exports: [
     HeaderComponent,

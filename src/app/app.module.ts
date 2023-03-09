@@ -4,11 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './auth/pages/login/login.component';
 import { SignupComponent } from './auth/pages/signup/signup.component';
 import {RouterModule} from "@angular/router";
 import {CoreModule} from "./core/core.module";
+import {ApiInterceptor} from "./core/interceptors/api.interceptor";
 
 
 @NgModule({
@@ -26,7 +27,13 @@ import {CoreModule} from "./core/core.module";
     CoreModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

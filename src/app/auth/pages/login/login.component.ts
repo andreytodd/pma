@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {TokenService} from "../../services/token.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,8 +15,14 @@ export class LoginComponent {
     login: '',
     password: ''
   })
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
-  }
+  loggedIn = false;
+  loginFailed = false
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private tokenService: TokenService,
+    private router: Router
+  ) {}
 
   signIn(): void {
     const {login, password} = this.loginForm.value
@@ -22,8 +30,15 @@ export class LoginComponent {
       login,
       password)
       .subscribe(
-        (data) => console.log(data),
-        (error) => console.log(error)
+        (data) => {
+          this.tokenService.saveToken(data.token);
+          this.loggedIn = true;
+          this.router.navigate(['/boards'])
+        },
+        (error) => {
+          console.log(error);
+          this.loginFailed = true;
+        }
       )
   }
 

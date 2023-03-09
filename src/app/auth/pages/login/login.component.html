@@ -1,3 +1,8 @@
-<p>login page</p>
-<button (click)="logIn()">Log In</button>
+<form (submit)="signIn()" [formGroup]="loginForm">
+  <label>Login:</label>
+  <input type="text"  placeholder="Login" formControlName="login">
+  <label>Password:</label>
+  <input type="text"  placeholder="Password" formControlName="password">
+  <button type="submit">Sign Up</button>
+</form>
 

@@ -18,7 +18,13 @@ export class SignupComponent {
   }
 
   signUp(): void {
-    console.log(this.newUserForm.value)
+    const {name, login, password} = this.newUserForm.value
+    this.authService.signUp(name, login, password)
+        .subscribe(
+          (data) => console.log(data),
+          (error) => console.log(error)
+        )
+    this.newUserForm.reset()
   }
 
 

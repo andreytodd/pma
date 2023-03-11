@@ -13,8 +13,6 @@ export class SignupComponent {
     login: '',
     password: ''
   });
-  signUpSuccess = false;
-  signUpFailed = false;
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) {
   }
@@ -25,16 +23,11 @@ export class SignupComponent {
         .subscribe(
           (data) => {
             console.log(data);
-            this.signUpFailed = false;
-            this.signUpSuccess = true;
           },
           (error) => {
             console.log(error);
-            this.signUpFailed = true;
           }
         )
     this.newUserForm.reset()
   }
-
-
 }

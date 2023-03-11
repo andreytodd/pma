@@ -16,7 +16,7 @@ export class LoginComponent {
     login: '',
     password: ''
   })
-  loggedIn = false;
+
   loginFailed = false
   constructor(
     private authService: AuthService,
@@ -26,30 +26,18 @@ export class LoginComponent {
   ) {}
 
   signIn(): void {
-    const {login, password} = this.loginForm.value
+    const {login, password} = this.loginForm.value;
     this.authService.signIn(login, password)
       .subscribe(
         (data) => {
           this.tokenService.saveToken(data.token);
-          this.loggedIn = true;
+          window.location.reload();
           this.router.navigate(['/boards']);
         },
         (error) => {
           console.log(error);
-          this.loginFailed = true;
         }
       )
   }
 
-  checkLogin() {
-    console.log(this.tokenService.getToken())
-  }
-
-  signOut() {
-    this.tokenService.signOut();
-  }
-
-  isLoggedInObs() {
-    return this.tokenService.isLoggedInObs()
-  }
 }

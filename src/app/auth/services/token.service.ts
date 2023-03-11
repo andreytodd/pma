@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable, of} from "rxjs";
+import {User} from "../models/auth.models";
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'user';
@@ -19,7 +20,7 @@ export class TokenService {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
 
-  signOut() {
+  signOut(): void {
     window.sessionStorage.clear();
   }
 
@@ -27,7 +28,9 @@ export class TokenService {
     return of(Boolean(this.getToken()));
   }
 
-  isLoggedIn(): boolean {
-    return Boolean(this.getToken());
+  saveUser(user: User): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user))
   }
+
 }

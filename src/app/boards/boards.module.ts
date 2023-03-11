@@ -11,10 +11,10 @@ import {BoardRoutingModule} from "./board-routing.module";
   ],
   imports: [
     CommonModule,
-    BoardRoutingModule
+    BoardRoutingModule,
   ],
   exports: [
-    BoardsPageComponent
+    BoardsPageComponent,
   ]
 })
 export class BoardsModule { }

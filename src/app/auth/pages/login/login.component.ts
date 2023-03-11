@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -26,14 +27,12 @@ export class LoginComponent {
 
   signIn(): void {
     const {login, password} = this.loginForm.value
-    this.authService.signIn(
-      login,
-      password)
+    this.authService.signIn(login, password)
       .subscribe(
         (data) => {
           this.tokenService.saveToken(data.token);
           this.loggedIn = true;
-          this.router.navigate(['/boards'])
+          this.router.navigate(['/boards']);
         },
         (error) => {
           console.log(error);
@@ -42,6 +41,15 @@ export class LoginComponent {
       )
   }
 
+  checkLogin() {
+    console.log(this.tokenService.getToken())
+  }
 
+  signOut() {
+    this.tokenService.signOut();
+  }
 
+  isLoggedInObs() {
+    return this.tokenService.isLoggedInObs()
+  }
 }

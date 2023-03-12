@@ -1,3 +1,7 @@
 <p>boards-page works!</p>
 <button (click)="getUsers()">Get Users</button>
-<button (click)="getBoards()">Get Boards</button>
+<button (click)="getAllBoards()">Get all Boards</button>
+
+<div *ngFor="let board of (allBoards$ | async)">
+  <app-board [board]="board"></app-board>
+</div>

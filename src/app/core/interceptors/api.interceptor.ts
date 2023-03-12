@@ -16,11 +16,11 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request;
-    const token = this.tokenService.getToken();
+    const token = this.tokenService.getToken().getValue();
     if (token !== null) {
       authReq = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.tokenService.getToken()}`
+          Authorization: `Bearer ${token}`
         }
       });
       return next.handle(authReq);

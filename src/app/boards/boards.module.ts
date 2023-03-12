@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe ,CommonModule} from '@angular/common';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import {BoardRoutingModule} from "./board-routing.module";
+import { BoardComponent } from './components/board/board.component';
+
 
 
 
 @NgModule({
   declarations: [
-    BoardsPageComponent
+    BoardsPageComponent,
+    BoardComponent,
   ],
   imports: [
     CommonModule,
     BoardRoutingModule,
+    AsyncPipe
   ],
   exports: [
     BoardsPageComponent,

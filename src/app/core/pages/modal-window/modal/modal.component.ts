@@ -31,19 +31,31 @@ export class ModalComponent {
     })
   }
 
-  addPhone() {
+  addUser() {
     this.sharedUsers.push(this.createUser());
   }
 
   createNewBoard() {
-    // this.apiService.createBoard({
-    //   owner: this.tokenService.getCurrentUserId(),
-    //   title: this.createBoardForm.value.title,
-    //   users: this.createBoardForm.value.sharedUsers.map(user => {
-    //     this.apiService.getUser(user.user)
-    //   })
-    // })
+    let arr: any[] | undefined = []
+    if (this.createBoardForm.value.sharedUsers?.[0].login !== null) {
+      arr = this.createBoardForm.value.sharedUsers?.map(user => user.login)
+    }
 
+    this.apiService.getUsers()
+      .subscribe((data) => {
+          let users: string[] = data
+            .filter((user: any) => arr?.includes(user.login))
+            .map((user: any) => user._id)
+        this.apiService.createBoard({
+          owner: this.tokenService.getCurrentUserId(),
+          title: this.createBoardForm.value.title,
+          users: users
+          }).subscribe(
+            (data) => data,
+            (error) => console.log(error)
+        )
+        })
+    this.dialog.closeAll();
   }
 
 }

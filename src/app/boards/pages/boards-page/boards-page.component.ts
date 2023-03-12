@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
 import {User} from "../../../auth/models/auth.models";
-import {createBoardData} from "../../models/boards.model";
+import {Observable} from "rxjs";
 import {TokenService} from "../../../auth/services/token.service";
 
 
 @Component({
   selector: 'app-boards-page',
   templateUrl: './boards-page.component.html',
-  styleUrls: ['./boards-page.component.scss']
+  styleUrls: ['./boards-page.component.scss'],
 })
-export class BoardsPageComponent {
+export class BoardsPageComponent implements OnInit {
+  allBoards: any[] = []
+  allBoards$!: Observable<any>;
   constructor(private apiService: ApiService, private tokenService: TokenService) {
+  }
+
+  ngOnInit() {
+    this.allBoards$ = this.apiService.getBoardsByUserId(this.tokenService.getCurrentUserId());
   }
 
   getUsers() {
@@ -21,10 +27,9 @@ export class BoardsPageComponent {
       )
   }
 
-  getBoards() {
-    this.apiService.getBoards().subscribe(
-      data => console.log(data)
-    )
+  getAllBoards() {
+    this.apiService.getBoards()
+      .subscribe(data => console.log(data))
   }
 
 }

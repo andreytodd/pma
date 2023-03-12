@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
+import {ApiService} from "../../../core/services/api.service";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService
   ) {}
 
   signIn(): void {
@@ -30,13 +32,19 @@ export class LoginComponent {
       .subscribe(
         (data) => {
           this.tokenService.saveToken(data.token);
-          this.tokenService.saveUser(login);
-          // window.location.reload();
-          this.router.navigate(['/boards']);
+          this.apiService.getUsers().subscribe(
+            data => {
+              let currentUser = (data.find((user: any) => user.login === login))._id;
+              this.tokenService.saveUser(currentUser);
+              this.router.navigate(['/boards']);
+            }
+          )
+
         },
         (error) => {
           console.log(error);
-        }
+        },
+        // () => window.location.reload()
       )
   }
 

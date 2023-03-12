@@ -5,8 +5,10 @@ import {SignupComponent} from "./auth/pages/signup/signup.component";
 import {BoardsPageComponent} from "./boards/pages/boards-page/boards-page.component";
 import {AuthGuard} from "./auth/guards/auth.guard";
 import {LoggedInGuard} from "./auth/guards/logged-in.guard";
+import {WelcomeComponent} from "./core/pages/welcome-page/welcome/welcome.component";
 
 const routes: Routes = [
+  {path: '', component: WelcomeComponent},
   {path: 'auth/login', component: LoginComponent, canActivate: [LoggedInGuard]},
   {path: 'auth/signup', component: SignupComponent, canActivate: [LoggedInGuard]},
   // {path: 'boards', loadChildren: () => import('./boards/boards.module').then(m => m.BoardsModule)},

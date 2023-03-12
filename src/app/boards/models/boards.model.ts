@@ -2,11 +2,11 @@ export interface BoardsDB {
   _id: string
   title: string
   owner: string
-  users: string[]
+  users?: string[] | undefined
 }
 
-export interface createBoard {
+export interface createBoardData {
   title: string
   owner: string
-  users: string[]
+  users?: string[] | undefined
 }

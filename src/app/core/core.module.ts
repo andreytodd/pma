@@ -6,6 +6,8 @@ import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.compo
 import {RouterLink} from "@angular/router";
 import { ModalComponent } from './pages/modal-window/modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { WelcomeComponent } from './pages/welcome-page/welcome/welcome.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -13,12 +15,14 @@ import {MatDialogModule} from "@angular/material/dialog";
     HeaderComponent,
     FooterComponent,
     NotFoundPageComponent,
-    ModalComponent
+    ModalComponent,
+    WelcomeComponent
   ],
   imports: [
     CommonModule,
     RouterLink,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,

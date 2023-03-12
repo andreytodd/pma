@@ -1,1 +1,15 @@
-<p>modal works!</p>
+<form [formGroup]="createBoardForm">
+  <label>Title</label>
+  <input formControlName="title">
+
+  <div formArrayName="sharedUsers" *ngFor="let phone of sharedUsers.controls; let i = index">
+    <div [formGroupName]="i">
+
+      <label>Add user to the board</label>
+      <input formControlName="login" placeholder="Type user's login">
+
+    </div>
+  </div>
+  <button (click)="addPhone()">Add</button>
+  <button type="submit" (click)="createNewBoard()">Submit</button>
+</form>

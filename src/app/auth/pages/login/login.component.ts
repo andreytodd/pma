@@ -3,7 +3,6 @@ import {AuthService} from "../../services/auth.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -31,7 +30,8 @@ export class LoginComponent {
       .subscribe(
         (data) => {
           this.tokenService.saveToken(data.token);
-          window.location.reload();
+          this.tokenService.saveUser(login);
+          // window.location.reload();
           this.router.navigate(['/boards']);
         },
         (error) => {

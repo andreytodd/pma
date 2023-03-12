@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, of} from "rxjs";
 import {User} from "../models/auth.models";
+import {ApiService} from "../../core/services/api.service";
 
 const TOKEN_KEY = 'token';
 const USER_KEY = 'user';
@@ -9,7 +10,7 @@ const USER_KEY = 'user';
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
@@ -28,9 +29,16 @@ export class TokenService {
     return of(Boolean(this.getToken()));
   }
 
-  saveUser(user: User): void {
+  saveUser(login: string): void {
     window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user))
+    this.apiService.getUsers().subscribe((data: User[]) => {
+      let currentUser = (data.filter(user => user.login === login))[0]._id;
+      window.sessionStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+    })
+  }
+
+  getCurrentUserId(): any {
+    return window.sessionStorage.getItem(USER_KEY);
   }
 
 }

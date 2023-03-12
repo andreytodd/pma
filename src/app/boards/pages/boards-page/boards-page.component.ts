@@ -11,7 +11,6 @@ import {TokenService} from "../../../auth/services/token.service";
   styleUrls: ['./boards-page.component.scss'],
 })
 export class BoardsPageComponent implements OnInit {
-  allBoards: any[] = []
   allBoards$!: Observable<any>;
   constructor(private apiService: ApiService, private tokenService: TokenService) {
   }

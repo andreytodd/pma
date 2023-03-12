@@ -16,7 +16,9 @@ export class HeaderComponent {
     private authService: AuthService,
     private dialog: MatDialog
   ) {}
-  public isLoggedIn = this.tokenService.isLoggedInObs();
+
+  // public isLoggedIn = this.tokenService.isLoggedInObs();
+  public token = this.tokenService.getToken()
 
   signOut() {
     this.authService.signOut();
@@ -25,5 +27,6 @@ export class HeaderComponent {
   showModal() {
       this.dialog.open(ModalComponent);
   }
+
 
 }

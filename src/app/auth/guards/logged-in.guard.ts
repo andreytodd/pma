@@ -14,7 +14,7 @@ export class LoggedInGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.tokenService.isLoggedInObs().pipe(
+    return this.tokenService.getToken().pipe(
       map(isLoggedIn => !isLoggedIn || this.router.createUrlTree(['/boards']))
     )
   }

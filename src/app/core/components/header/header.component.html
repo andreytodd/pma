@@ -1,5 +1,5 @@
 <div id="header">
-  <div *ngIf="!(isLoggedIn | async)">
+  <div *ngIf="!(token | async)">
     <ul>
       <li>
         <a routerLink="/auth/login">Log In</a>
@@ -9,7 +9,7 @@
       </li>
     </ul>
   </div>
-  <div *ngIf="isLoggedIn | async">
+  <div *ngIf="token | async">
     <ul>
       <li>
         <a (click)="showModal()">Create Board</a>

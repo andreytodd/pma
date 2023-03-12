@@ -19,10 +19,6 @@ export class BoardComponent implements OnInit {
 
   deleteBoard() {
     this.apiService.deleteBoard(this.board._id)
-      .subscribe(
-        (data) => (data),
-        error => console.log(error)
-        )
   }
 
 }

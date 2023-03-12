@@ -50,10 +50,7 @@ export class ModalComponent {
           owner: this.tokenService.getCurrentUserId(),
           title: this.createBoardForm.value.title,
           users: users
-          }).subscribe(
-            (data) => data,
-            (error) => console.log(error)
-        )
+          })
         })
     this.dialog.closeAll();
   }

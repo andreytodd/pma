@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {TokenService} from "../../../auth/services/token.service";
 import {AuthService} from "../../../auth/services/auth.service";
 import { MatDialog } from '@angular/material/dialog';
-import {ModalComponent} from "../../dialogs/modal/modal.component";
+import {CreateBoardComponent} from "../../dialogs/create-board/create-board.component";
 
 
 @Component({
@@ -24,7 +24,7 @@ export class HeaderComponent {
   }
 
   showModal() {
-      this.dialog.open(ModalComponent);
+      this.dialog.open(CreateBoardComponent);
   }
 
 

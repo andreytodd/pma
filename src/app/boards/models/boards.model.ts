@@ -5,7 +5,7 @@ export interface BoardsDB {
   users?: string[] | undefined
 }
 
-export interface createBoardData {
+export interface boardData {
   title: string
   owner: string
   users?: string[] | undefined

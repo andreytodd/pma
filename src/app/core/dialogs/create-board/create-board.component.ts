@@ -5,11 +5,11 @@ import {ApiService} from "../../services/api.service";
 import {TokenService} from "../../../auth/services/token.service";
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  selector: 'app-create-board',
+  templateUrl: './create-board.component.html',
+  styleUrls: ['./create-board.component.scss']
 })
-export class ModalComponent {
+export class CreateBoardComponent {
   constructor(
     private dialog: MatDialog,
     private apiService: ApiService,

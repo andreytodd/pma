@@ -1,0 +1,16 @@
+<form [formGroup]="updateBoardForm" (submit)="updateBoard()">
+  <label>Title</label>
+  <input formControlName="title">
+
+  <div formArrayName="sharedUsers" *ngFor="let phone of sharedUsers.controls; let i = index">
+    <div [formGroupName]="i">
+
+      <label>Add user to the board</label>
+      <input formControlName="login" placeholder="Type user's login">
+
+    </div>
+  </div>
+  <a (click)="addUser()">Add</a>
+  <button type="submit">Submit</button>
+</form>
+

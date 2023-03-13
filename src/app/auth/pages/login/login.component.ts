@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
 import {ApiService} from "../../../core/services/api.service";
@@ -13,7 +13,7 @@ import {ApiService} from "../../../core/services/api.service";
 export class LoginComponent {
 
   loginForm: FormGroup = this.formBuilder.group({
-    login: '',
+    login: ['', Validators.required],
     password: ''
   })
 

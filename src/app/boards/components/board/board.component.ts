@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, Output} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
 import {ConfirmationDialogComponent} from "../../../core/dialogs/confirmation-dialog/confirmation-dialog.component";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {EditBoardComponent} from "../../../core/dialogs/edit-board/edit-board.component";
 
 @Component({
   selector: 'app-board',
@@ -15,8 +16,15 @@ export class BoardComponent {
   constructor(private apiService: ApiService, public dialog: MatDialog) {
   }
 
+
   deleteBoard() {
     this.apiService.deleteBoard(this.board._id)
+  }
+
+  updateBoard() {
+    const dialogRef = this.dialog.open(EditBoardComponent);
+    dialogRef.componentInstance.boardId = this.board._id;
+    console.log(this.board._id)
   }
 
   showConfirmationDialog() {

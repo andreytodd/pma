@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../auth/models/auth.models";
 import {BehaviorSubject, Observable, of, Subscription} from "rxjs";
-import {createBoardData} from "../../boards/models/boards.model";
+import {boardData} from "../../boards/models/boards.model";
 
 const USERS_API = 'http://localhost:3000/users';
 const BOARDS_API = 'http://localhost:3000/boards';
@@ -31,7 +31,7 @@ export class ApiService {
     return this.allBoards$;
   }
 
-  createBoard(data: createBoardData): void {
+  createBoard(data: boardData): void {
     this.http.post<any[]>(BOARDS_API, data).subscribe((data) => {
       const newBoardList = [...this.allBoards$.getValue(), data];
       this.allBoards$.next(newBoardList)
@@ -41,6 +41,17 @@ export class ApiService {
   deleteBoard(id: string) {
     this.http.delete(`${BOARDS_API}/${id}`).subscribe((data) => {
       const newBoardList = this.allBoards$.getValue().filter((board) => board._id !== id)
+      this.allBoards$.next(newBoardList);
+    });
+  }
+
+  updateBoard(id: string, data: boardData) {
+    this.http.put(`${BOARDS_API}/${id}`, data).subscribe((data) => {
+      const newBoardList = this.allBoards$.getValue();
+      const index = newBoardList.findIndex(board => board._id = id);
+      if (index !== -1) {
+        newBoardList[index] = data;
+      }
       this.allBoards$.next(newBoardList);
     });
   }

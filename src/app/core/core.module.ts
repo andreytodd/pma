@@ -4,11 +4,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
 import {RouterLink} from "@angular/router";
-import { ModalComponent } from './dialogs/modal/modal.component';
+import { CreateBoardComponent } from './dialogs/create-board/create-board.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { WelcomeComponent } from './pages/welcome-page/welcome/welcome.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { EditBoardComponent } from './dialogs/edit-board/edit-board.component';
 
 
 @NgModule({
@@ -16,9 +17,10 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confi
     HeaderComponent,
     FooterComponent,
     NotFoundPageComponent,
-    ModalComponent,
+    CreateBoardComponent,
     WelcomeComponent,
     ConfirmationDialogComponent,
+    EditBoardComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,6 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confi
     HeaderComponent,
     FooterComponent
   ],
-  entryComponents: [ModalComponent]
+  entryComponents: [CreateBoardComponent]
 })
 export class CoreModule { }

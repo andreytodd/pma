@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, AbstractControl, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-signup',
@@ -9,10 +9,23 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class SignupComponent {
   newUserForm: FormGroup = this.formBuilder.group({
-    name: '',
-    login: '',
-    password: ''
-  });
+    name: ['', Validators.required],
+    login: [
+      '',
+      [
+        Validators.required,
+      Validators.minLength(4),
+      Validators.maxLength(20)
+      ]
+    ],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20)
+    ]],
+    confirmPassword: ['', Validators.required]
+  }
+    );
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) {
   }
@@ -30,4 +43,5 @@ export class SignupComponent {
         )
     this.newUserForm.reset()
   }
+
 }

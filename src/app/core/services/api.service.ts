@@ -47,11 +47,7 @@ export class ApiService {
 
   updateBoard(id: string, data: boardData) {
     this.http.put(`${BOARDS_API}/${id}`, data).subscribe((data) => {
-      const newBoardList = this.allBoards$.getValue();
-      const index = newBoardList.findIndex(board => board._id = id);
-      if (index !== -1) {
-        newBoardList[index] = data;
-      }
+      const newBoardList = this.allBoards$.getValue().map(item => item._id === id ? data : item)
       this.allBoards$.next(newBoardList);
     });
   }

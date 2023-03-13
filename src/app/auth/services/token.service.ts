@@ -33,10 +33,6 @@ export class TokenService {
   saveUser(currentUser: string): void {
     window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, currentUser);
-    // this.apiService.getUsers().subscribe((data: User[]) => {
-    //   // let currentUser = (data.filter(user => user.login === login))[0]._id;
-    //
-    // })
   }
 
   getCurrentUserId(): any {

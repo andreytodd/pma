@@ -40,9 +40,7 @@ export class ApiService {
 
   deleteBoard(id: string) {
     this.http.delete(`${BOARDS_API}/${id}`).subscribe((data) => {
-      console.log(this.allBoards$.getValue())
       const newBoardList = this.allBoards$.getValue().filter((board) => board._id !== id)
-      console.log(newBoardList)
       this.allBoards$.next(newBoardList);
     });
   }

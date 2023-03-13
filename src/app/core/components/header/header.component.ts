@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {TokenService} from "../../../auth/services/token.service";
 import {AuthService} from "../../../auth/services/auth.service";
 import { MatDialog } from '@angular/material/dialog';
-import {ModalComponent} from "../../pages/modal-window/modal/modal.component";
+import {ModalComponent} from "../../dialogs/modal/modal.component";
 
 
 @Component({
@@ -17,7 +17,6 @@ export class HeaderComponent {
     private dialog: MatDialog
   ) {}
 
-  // public isLoggedIn = this.tokenService.isLoggedInObs();
   public token = this.tokenService.getToken()
 
   signOut() {

@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {FormArray, FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
-import {ApiService} from "../../../services/api.service";
-import {TokenService} from "../../../../auth/services/token.service";
+import {ApiService} from "../../services/api.service";
+import {TokenService} from "../../../auth/services/token.service";
 
 @Component({
   selector: 'app-modal',

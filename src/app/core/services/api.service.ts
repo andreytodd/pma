@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../auth/models/auth.models";
 import {BehaviorSubject, Observable, of, Subscription} from "rxjs";
-import {boardData} from "../../boards/models/boards.model";
+import {BoardData, BoardFormData, GetColumnsModel} from "../../boards/models/boards.model";
+import {BoardComponent} from "../../boards/components/board/board.component";
 
 const USERS_API = 'http://localhost:3000/users';
 const BOARDS_API = 'http://localhost:3000/boards';
@@ -12,7 +13,8 @@ const BOARDSET_API = 'http://localhost:3000/boardsSet';
   providedIn: 'root'
 })
 export class ApiService {
-  allBoards$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  allBoards$: BehaviorSubject<BoardData[]> = new BehaviorSubject<BoardData[]>([]);
+  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
 
   constructor(private http: HttpClient) { }
 
@@ -31,8 +33,8 @@ export class ApiService {
     return this.allBoards$;
   }
 
-  createBoard(data: boardData): void {
-    this.http.post<any[]>(BOARDS_API, data).subscribe((data) => {
+  createBoard(data: BoardFormData): void {
+    this.http.post<any>(BOARDS_API, data).subscribe((data) => {
       const newBoardList = [...this.allBoards$.getValue(), data];
       this.allBoards$.next(newBoardList)
     })
@@ -45,9 +47,9 @@ export class ApiService {
     });
   }
 
-  updateBoard(id: string, data: boardData) {
-    this.http.put(`${BOARDS_API}/${id}`, data).subscribe((data) => {
-      const newBoardList = this.allBoards$.getValue().map(item => item._id === id ? data : item)
+  updateBoard(id: string, data: BoardFormData): void {
+    this.http.put<BoardData>(`${BOARDS_API}/${id}`, data).subscribe((data) => {
+      const newBoardList: BoardData[] = this.allBoards$.getValue().map(item => item._id === id ? data : item)
       this.allBoards$.next(newBoardList);
     });
   }
@@ -57,4 +59,26 @@ export class ApiService {
       this.allBoards$.next(data)})
     return this.allBoards$
   };
+
+  getAllColumnsInBoard(id: string) {
+    this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) =>
+      console.log(data)
+    )
+  }
+
+  createColumn() {
+
+  }
+
+  getColumnById() {
+
+  }
+
+  updateColumnById() {
+
+  }
+
+  deleteColumnById() {
+
+  }
 }

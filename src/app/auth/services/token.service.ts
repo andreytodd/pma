@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {User} from "../models/auth.models";
 import {ApiService} from "../../core/services/api.service";
@@ -11,7 +11,7 @@ const USER_KEY = 'user';
 export class TokenService {
 
   token$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(window.localStorage.getItem(TOKEN_KEY));
-  constructor(private apiService: ApiService) { }
+  constructor() { }
   saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
@@ -25,10 +25,7 @@ export class TokenService {
   signOut(): void {
     window.localStorage.clear();
   }
-  // TODO: remove this code
-  // isLoggedInObs(): Observable<boolean> {
-  //   return of(!!(this.getToken().getValue()));
-  // }
+
 
   saveUser(currentUser: string): void {
     window.localStorage.removeItem(USER_KEY);

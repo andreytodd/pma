@@ -17,6 +17,7 @@ export class EditBoardComponent {
   ) {}
 
   public boardId: string = '';
+  public boardTitle: string = '';
 
   updateBoardForm = new FormGroup({
     title: new FormControl(),

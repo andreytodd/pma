@@ -1,5 +1,5 @@
-<div class="boards-page__board">
+<div class="boards-page__board" (click)="openBoardCard()">
   <p>{{board.title}}</p>
-  <button (click)="updateBoard()">Edit</button>
-  <button (click)="showConfirmationDialog()">Delete</button>
+  <button (click)="updateBoard(); $event.stopPropagation()">Edit</button>
+  <button (click)="showConfirmationDialog(); $event.stopPropagation()">Delete</button>
 </div>

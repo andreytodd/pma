@@ -3,6 +3,8 @@ import {ApiService} from "../../../core/services/api.service";
 import {Observable} from "rxjs";
 import {CreateColumnModel} from "../../models/boards.model";
 import {ActivatedRoute} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-column.component";
 
 @Component({
   selector: 'app-board-page',
@@ -12,14 +14,16 @@ import {ActivatedRoute} from "@angular/router";
 export class BoardPageComponent implements OnInit{
 
   boardId: string = '';
+  public columnOrder: number = 0;
 
   allColumns$!: Observable<CreateColumnModel[]>
   constructor(
     private apiService: ApiService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
     ) {
   }
-  public columnOrder: number = 0;
+
 
   ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
@@ -27,7 +31,10 @@ export class BoardPageComponent implements OnInit{
   }
 
   createColumn() {
-    this.allColumns$.subscribe(data => console.log(data))
+    const dialogRef = this.dialog.open(CreateColumnComponent);
+    dialogRef.componentInstance.boardId = this.boardId
+    dialogRef.componentInstance.order = this.columnOrder
+    this.columnOrder++
   }
 
 }

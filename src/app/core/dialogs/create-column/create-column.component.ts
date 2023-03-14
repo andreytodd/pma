@@ -14,12 +14,19 @@ export class CreateColumnComponent {
     private apiService: ApiService,
   ) {}
 
+  public boardId: string = '';
+  public order: number = 0;
+
   createColumnForm = new FormGroup({
     title: new FormControl()
   })
 
   createColumn() {
-
+    this.apiService.createColumn(this.boardId, {
+      title: this.createColumnForm.value.title,
+      order: this.order
+    })
+    this.dialog.closeAll();
   }
 
 }

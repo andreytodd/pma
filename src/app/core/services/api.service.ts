@@ -67,15 +67,11 @@ export class ApiService {
     return this.allColumns$;
   }
 
-  // {
-  //   this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
-  //     this.allColumns$.next(data);
-  //     return this.allColumns$;
-  //   )
-  // }}
-
-  createColumn() {
-
+  createColumn(id: string, data: CreateColumnModel) {
+    this.http.post<GetColumnsModel>(`${BOARDS_API}/${id}/columns`, data).subscribe((data) => {
+      const newColumnsList =  [...this.allColumns$.getValue(), data];
+      this.allColumns$.next(newColumnsList);
+    })
   }
 
   getColumnById() {

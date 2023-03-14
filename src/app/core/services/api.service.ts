@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../auth/models/auth.models";
 import {BehaviorSubject, Observable, of, Subscription} from "rxjs";
-import {BoardData, BoardFormData, GetColumnsModel} from "../../boards/models/boards.model";
+import {BoardData, BoardFormData, CreateColumnModel, GetColumnsModel} from "../../boards/models/boards.model";
 import {BoardComponent} from "../../boards/components/board/board.component";
 
 const USERS_API = 'http://localhost:3000/users';
@@ -60,11 +60,19 @@ export class ApiService {
     return this.allBoards$
   };
 
-  getAllColumnsInBoard(id: string) {
-    this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) =>
-      console.log(data)
-    )
+  getAllColumnsInBoard(id: string): Observable<CreateColumnModel[]> {
+    this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
+      this.allColumns$.next(data);
+    })
+    return this.allColumns$;
   }
+
+  // {
+  //   this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
+  //     this.allColumns$.next(data);
+  //     return this.allColumns$;
+  //   )
+  // }}
 
   createColumn() {
 

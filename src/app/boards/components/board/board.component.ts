@@ -17,7 +17,7 @@ export class BoardComponent {
   constructor(
     private apiService: ApiService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -42,10 +42,10 @@ export class BoardComponent {
     })
   }
 
-
   openBoardCard(): void {
-    this.apiService.getAllColumnsInBoard(this.board._id)
-    this.router.navigate(['board', this.board._id])
+    this.apiService.getAllColumnsInBoard(this.board._id);
+    this.router.navigate(['board', this.board._id]);
+
   }
 
 }

@@ -1,1 +1,4 @@
-<p>board-page works!</p>
+<button (click)="createColumn()">Create column</button>
+<div *ngFor="let column of allColumns$ | async">
+  <p>{{column.title}}</p>
+</div>

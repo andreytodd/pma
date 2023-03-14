@@ -6,10 +6,11 @@ import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.compo
 import {RouterLink} from "@angular/router";
 import { CreateBoardComponent } from './dialogs/create-board/create-board.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { WelcomeComponent } from './pages/welcome-page/welcome/welcome.component';
+import { WelcomeComponent } from './pages/welcome-page/welcome.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { EditBoardComponent } from './dialogs/edit-board/edit-board.component';
+import { CreateColumnComponent } from './dialogs/create-column/create-column.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { EditBoardComponent } from './dialogs/edit-board/edit-board.component';
     WelcomeComponent,
     ConfirmationDialogComponent,
     EditBoardComponent,
+    CreateColumnComponent,
   ],
   imports: [
     CommonModule,

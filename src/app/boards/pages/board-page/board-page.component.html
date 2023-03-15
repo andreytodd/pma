@@ -1,4 +1,4 @@
 <button (click)="createColumn()">Create column</button>
 <div *ngFor="let column of allColumns$ | async">
-  <p>{{column.title}}</p>
+  <app-board-column [column]="column" [boardId]="boardId"></app-board-column>
 </div>

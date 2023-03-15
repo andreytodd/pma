@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {GetColumnsModel} from "../../models/boards.model";
+import {ApiService} from "../../../core/services/api.service";
 
 @Component({
   selector: 'app-board-column',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./board-column.component.scss']
 })
 export class BoardColumnComponent {
+  @Input() column!: GetColumnsModel;
+  @Input() boardId!: string;
 
+  constructor(private apiService: ApiService) {}
+
+  deleteColumn() {
+    this.apiService.deleteColumnById(this.boardId, this.column._id);
+  }
 }

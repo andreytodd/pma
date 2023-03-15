@@ -60,7 +60,7 @@ export class ApiService {
     return this.allBoards$
   };
 
-  getAllColumnsInBoard(id: string): Observable<CreateColumnModel[]> {
+  getAllColumnsInBoard(id: string): Observable<GetColumnsModel[]> {
     this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
       this.allColumns$.next(data);
     })
@@ -82,7 +82,10 @@ export class ApiService {
 
   }
 
-  deleteColumnById() {
-
+  deleteColumnById(boardId: string, columnId: string) {
+    this.http.delete(`${BOARDS_API}/${boardId}/columns/${columnId}`).subscribe((data) => {
+      const newColumnsList = this.allColumns$.getValue().filter((column) => column._id !== columnId)
+      this.allColumns$.next(newColumnsList);
+    })
   }
 }

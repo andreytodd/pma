@@ -28,8 +28,7 @@ export class LoginComponent {
 
   signIn(): void {
     const {login, password} = this.loginForm.value;
-    this.authService.signIn(login, password)
-      .subscribe(
+    this.authService.signIn(login, password).subscribe(
         (data) => {
           this.tokenService.saveToken(data.token);
           this.apiService.getUsers().subscribe(
@@ -43,8 +42,7 @@ export class LoginComponent {
         },
         (error) => {
           console.log(error);
-        },
-        // () => window.location.reload()
+        }
       )
   }
 

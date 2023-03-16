@@ -1,10 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
-import {Observable} from "rxjs";
-import {CreateColumnModel, GetColumnsModel} from "../../models/boards.model";
+import { Observable } from "rxjs";
+import { GetColumnsModel } from "../../models/boards.model";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-column.component";
+import {ColumnIdService} from "../../services/column-id.service";
 
 @Component({
   selector: 'app-board-page',
@@ -13,14 +14,15 @@ import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-
 })
 export class BoardPageComponent implements OnInit{
 
-  boardId: string = '';
-  public columnOrder: number = 0;
+  boardId!: string;
+  columnsArray!: GetColumnsModel[];
 
   allColumns$!: Observable<GetColumnsModel[]>
   constructor(
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private columnIdService: ColumnIdService
     ) {
   }
 
@@ -28,14 +30,21 @@ export class BoardPageComponent implements OnInit{
   ngOnInit() {
     this.boardId = this.activatedRoute.snapshot.params['id'];
     this.allColumns$ = this.apiService.getAllColumnsInBoard(this.boardId);
-    this.allColumns$.subscribe(data => console.log(data))
+    this.allColumns$.subscribe(data => {
+      this.columnsArray = [...data]
+    })
   }
 
   createColumn() {
     const dialogRef = this.dialog.open(CreateColumnComponent);
-    dialogRef.componentInstance.boardId = this.boardId
-    dialogRef.componentInstance.order = this.columnOrder
-    this.columnOrder++
+    dialogRef.componentInstance.boardId = this.boardId;
+    // dialogRef.componentInstance.order = this.columnsArray.length;
+    // console.log(this.columnIdService.columnId.getValue())
+    dialogRef.componentInstance.order = this.columnIdService.columnId.getValue()
+    // this.columnIdService.columnId.next(dialogRef.componentInstance.order + 1)
+    this.allColumns$.subscribe((data) => {
+      this.columnIdService.columnId.next([...data].length)
+    })
   }
 
 }

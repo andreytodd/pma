@@ -3,10 +3,13 @@ import { CommonModule } from '@angular/common';
 import {AuthService} from "./services/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { AuthRoutingModule } from './auth-routing.module';
+import { UserPageComponent } from './pages/user-page/user-page.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    UserPageComponent
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,

@@ -13,6 +13,7 @@ import {ApiInterceptor} from "./core/interceptors/api.interceptor";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {BoardsPageComponent} from "./boards/pages/boards-page/boards-page.component";
 import {BoardsModule} from "./boards/boards.module";
+import {AuthModule} from "./auth/auth.module";
 
 
 
@@ -31,7 +32,8 @@ import {BoardsModule} from "./boards/boards.module";
     CoreModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    BoardsModule
+    BoardsModule,
+    AuthModule
   ],
   providers: [
     {

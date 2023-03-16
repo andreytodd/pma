@@ -2,3 +2,6 @@
 <div *ngFor="let column of allColumns$ | async">
   <app-board-column [column]="column" [boardId]="boardId"></app-board-column>
 </div>
+<div *ngIf="columnsArray.length !== 0">
+  Add task
+</div>

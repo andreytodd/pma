@@ -1,47 +1,62 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormArray, FormControl, FormGroup, AbstractControl, FormBuilder, Validators} from "@angular/forms";
+import { FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
-  newUserForm: FormGroup = this.formBuilder.group({
-    name: ['', Validators.required],
-    login: [
-      '',
-      [
-        Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(20)
-      ]
-    ],
-    password: ['', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20)
-    ]],
-    confirmPassword: ['', Validators.required]
-  }
+export class SignupComponent implements OnInit {
+
+  newUserForm!: FormGroup;
+  submitted = false;
+
+  ngOnInit() {
+    this.newUserForm = this.formBuilder.group({
+        name: ['', Validators.required],
+        login: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(20)
+          ]
+        ],
+        password: ['', [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ]],
+        confirmPassword: ['', Validators.required]
+      }
     );
+  }
+
+
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) {
   }
 
   signUp(): void {
     const {name, login, password} = this.newUserForm.value
-    this.authService.signUp(name, login, password)
-        .subscribe(
-          (data) => {
-            console.log(data);
+    this.authService.signUp(name, login, password).subscribe(
+          () => {
+            alert('Registration successful')
           },
           (error) => {
+            this.newUserForm.reset()
             console.log(error);
           }
         )
     this.newUserForm.reset()
+  }
+  get form() {
+    return this.newUserForm.controls;
+  }
+
+  print() {
+    console.log(this.newUserForm.controls)
   }
 
 }

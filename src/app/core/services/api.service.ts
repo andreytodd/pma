@@ -15,12 +15,20 @@ const BOARDSET_API = 'http://localhost:3000/boardsSet';
 export class ApiService {
   allBoards$: BehaviorSubject<BoardData[]> = new BehaviorSubject<BoardData[]>([]);
   allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
+  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{})
 
   constructor(private http: HttpClient) { }
 
 
   getUsers(): Observable<any> {
     return this.http.get(USERS_API)
+  }
+
+  getUserById(id: string): BehaviorSubject<User> {
+    this.http.get<User>(`${USERS_API}/${id}`).subscribe((user) => {
+      this.currentUser$.next(user);
+    })
+    return this.currentUser$
   }
 
   requestBoards(): void {

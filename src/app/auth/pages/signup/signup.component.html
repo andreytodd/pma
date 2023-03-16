@@ -1,12 +1,29 @@
-<form (submit)="signUp()" [formGroup]="newUserForm">
-  <label>Name:</label>
-  <input type="text"  placeholder="Name" formControlName="name">
-  <label>Login:</label>
-  <input type="text"  placeholder="Login" formControlName="login">
-  <label>Password:</label>
-  <input type="text"  placeholder="Password" formControlName="password">
-  <label>Password:</label>
-  <input type="text"  placeholder="Confirm password" formControlName="confirmPassword">
+<form (ngSubmit)="signUp()" [formGroup]="newUserForm">
+  <div>
+    <label>Name:</label>
+    <input type="text"  placeholder="Name" formControlName="name">
+    <div *ngIf="newUserForm.controls['name'].errors?.['required']">
+      Error
+    </div>
+  </div>
+
+  <div>
+    <label>Login:</label>
+    <input type="text"  placeholder="Login" formControlName="login">
+  </div>
+
+  <div>
+    <label>Password:</label>
+    <input type="password"  placeholder="Password" formControlName="password">
+  </div>
+
+  <div>
+    <label>Password:</label>
+    <input type="password"  placeholder="Confirm password" formControlName="confirmPassword">
+  </div>
+
   <button type="submit">Sign Up</button>
 </form>
+
+<button (click)="print()">Print</button>
 

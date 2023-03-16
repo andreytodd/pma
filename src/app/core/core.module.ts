@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { EditBoardComponent } from './dialogs/edit-board/edit-board.component';
 import { CreateColumnComponent } from './dialogs/create-column/create-column.component';
+import { EditUserComponent } from './dialogs/edit-user/edit-user.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { CreateColumnComponent } from './dialogs/create-column/create-column.com
     ConfirmationDialogComponent,
     EditBoardComponent,
     CreateColumnComponent,
+    EditUserComponent,
   ],
   imports: [
     CommonModule,

@@ -27,6 +27,7 @@ export class UserPageComponent implements OnInit{
   }
 
   editUser() {
-    this.dialog.open(EditUserComponent);
+    const dialogRef = this.dialog.open(EditUserComponent);
+    dialogRef.componentInstance.userId = this.currentUser$.getValue()._id
   }
 }

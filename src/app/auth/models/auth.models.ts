@@ -3,3 +3,9 @@ export interface User {
   name: string
   login: string
 }
+
+export interface EditUser {
+  name: string
+  login: string
+  password: string
+}

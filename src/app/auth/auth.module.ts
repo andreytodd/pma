@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 
 
+
 @NgModule({
   declarations: [
     UserPageComponent
@@ -13,7 +14,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [AuthService]
 })

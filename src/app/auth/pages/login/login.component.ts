@@ -1,21 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {FormArray, FormControl, FormGroup, AbstractControl, FormBuilder, Validators} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
 import {ApiService} from "../../../core/services/api.service";
+import {MatLabel} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  loginForm: FormGroup = this.formBuilder.group({
-    login: ['', Validators.required],
-    password: ''
-  })
+  loginForm: FormGroup = new FormGroup({});
+  hide = true;
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      login: ['', Validators.compose([Validators.required, Validators.minLength(4)]) ],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(5)]) ]
+    })
+  }
 
   loginFailed = false
   constructor(

@@ -1,17 +1,18 @@
-<form [formGroup]="editUserForm">
+<form [formGroup]="editUserForm" (submit)="onSubmit()">
   <div>
     <label>New name</label>
-    <input type="text" formControlName="title" [(ngModel)]="userName">
+    <input type="text" formControlName="name" required>
   </div>
 
   <div>
     <label>New login</label>
-    <input type="text" formControlName="title">
+    <input type="text" formControlName="login" required>
   </div>
 
   <div>
     <label>Password</label>
-    <input type="password" formControlName="title">
+    <input type="password" formControlName="password" required>
   </div>
 
+  <button>Submit</button>
 </form>

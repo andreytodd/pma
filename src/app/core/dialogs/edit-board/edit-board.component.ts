@@ -20,7 +20,7 @@ export class EditBoardComponent {
   public boardTitle: string = '';
 
   updateBoardForm = new FormGroup({
-    title: new FormControl(),
+    title: new FormControl(this.boardId),
     sharedUsers: new FormArray([
       this.createUser()
     ])
@@ -51,7 +51,7 @@ export class EditBoardComponent {
           .map((user: any) => user._id)
         this.apiService.updateBoard(this.boardId, {
           owner: this.tokenService.getCurrentUserId(),
-          title: this.updateBoardForm.value.title,
+          title: this.updateBoardForm.value.title as string,
           users: users
         })
       })

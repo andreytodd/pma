@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import { GetColumnsModel } from "../../models/boards.model";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
@@ -14,10 +14,10 @@ import {ColumnIdService} from "../../services/column-id.service";
 })
 export class BoardPageComponent implements OnInit{
 
-  boardId!: string;
+  boardId: string = this.activatedRoute.snapshot.params['id'];
   columnsArray!: GetColumnsModel[];
 
-  allColumns$!: Observable<GetColumnsModel[]>
+  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
   constructor(
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute,
@@ -28,10 +28,8 @@ export class BoardPageComponent implements OnInit{
 
 
   ngOnInit() {
-    this.boardId = this.activatedRoute.snapshot.params['id'];
-    this.allColumns$ = this.apiService.getAllColumnsInBoard(this.boardId);
-    this.allColumns$.subscribe(data => {
-      this.columnsArray = [...data]
+    this.apiService.getAllColumnsInBoard(this.boardId).subscribe((data) =>{
+      this.allColumns$.next(data);
     })
   }
 

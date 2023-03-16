@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
+import {ApiService} from "../../services/api.service";
+import {EditUser} from "../../../auth/models/auth.models";
 
 @Component({
   selector: 'app-edit-user',
@@ -8,11 +10,20 @@ import { FormControl, FormGroup} from "@angular/forms";
 })
 export class EditUserComponent {
 
-  userName: string = '';
+  userId!: string;
+
 
   editUserForm = new FormGroup({
-    title: new FormControl(),
     name: new FormControl(),
+    login: new FormControl(),
     password: new FormControl()
   })
+
+  constructor(private apiService: ApiService) {
+  }
+
+  onSubmit() {
+    this.apiService.editUser(this.userId, this.editUserForm.value as EditUser)
+  }
+
 }

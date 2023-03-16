@@ -1,6 +1,6 @@
 <form [formGroup]="updateBoardForm" (submit)="updateBoard()">
   <label>Title</label>
-  <input formControlName="title" [(ngModel)]="boardTitle">
+  <input formControlName="title">
 
   <div formArrayName="sharedUsers" *ngFor="let phone of sharedUsers.controls; let i = index">
     <div [formGroupName]="i">

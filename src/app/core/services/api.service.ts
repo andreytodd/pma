@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {User} from "../../auth/models/auth.models";
+import {EditUser, User} from "../../auth/models/auth.models";
 import {BehaviorSubject, Observable, of, Subscription} from "rxjs";
 import {BoardData, BoardFormData, CreateColumnModel, GetColumnsModel} from "../../boards/models/boards.model";
 import {BoardComponent} from "../../boards/components/board/board.component";
@@ -29,6 +29,13 @@ export class ApiService {
       this.currentUser$.next(user);
     })
     return this.currentUser$
+  }
+
+  editUser(id: string, data: EditUser) {
+    this.http.put<User>(`${USERS_API}/${id}`, data).subscribe((user) => {
+        this.currentUser$.next(user);
+      }
+    )
   }
 
   requestBoards(): void {
@@ -69,10 +76,7 @@ export class ApiService {
   };
 
   getAllColumnsInBoard(id: string): Observable<GetColumnsModel[]> {
-    this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
-      this.allColumns$.next(data);
-    })
-    return this.allColumns$;
+    return this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`);
   }
 
   createColumn(id: string, data: CreateColumnModel) {

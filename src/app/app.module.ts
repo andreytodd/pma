@@ -11,9 +11,12 @@ import {RouterModule} from "@angular/router";
 import {CoreModule} from "./core/core.module";
 import {ApiInterceptor} from "./core/interceptors/api.interceptor";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {BoardsPageComponent} from "./boards/pages/boards-page/boards-page.component";
 import {BoardsModule} from "./boards/boards.module";
 import {AuthModule} from "./auth/auth.module";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -33,7 +36,11 @@ import {AuthModule} from "./auth/auth.module";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BoardsModule,
-    AuthModule
+    AuthModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     {

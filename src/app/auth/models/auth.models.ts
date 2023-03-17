@@ -7,5 +7,5 @@ export interface User {
 export interface EditUser {
   name: string
   login: string
-  password: string
+  password?: string
 }

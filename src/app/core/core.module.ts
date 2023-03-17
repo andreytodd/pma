@@ -12,6 +12,8 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confi
 import { EditBoardComponent } from './dialogs/edit-board/edit-board.component';
 import { CreateColumnComponent } from './dialogs/create-column/create-column.component';
 import { EditUserComponent } from './dialogs/edit-user/edit-user.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import { CreateTaskComponent } from './dialogs/create-task/create-task.component';
 
 
 @NgModule({
@@ -25,12 +27,14 @@ import { EditUserComponent } from './dialogs/edit-user/edit-user.component';
     EditBoardComponent,
     CreateColumnComponent,
     EditUserComponent,
+    CreateTaskComponent,
   ],
   imports: [
     CommonModule,
     RouterLink,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule
   ],
   exports: [
     HeaderComponent,

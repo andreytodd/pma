@@ -21,3 +21,11 @@ export interface GetColumnsModel extends CreateColumnModel {
   _id: string
   boardId: string
 }
+
+export interface TaskModel {
+  title: string
+  order: number
+  description: string
+  userId: string
+  users: string[]
+}

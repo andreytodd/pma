@@ -1,4 +1,12 @@
-<button (click)="createColumn()">Create column</button>
-<div *ngFor="let column of allColumns$ | async">
-  <app-board-column [column]="column" [boardId]="boardId"></app-board-column>
+<p>{{boardName}}</p>
+<div *ngIf="allColumns.length !== 0">
+  <button>Add task</button>
 </div>
+<button (click)="createColumn()">Create column</button>
+<div class="columns-all">
+  <div *ngFor="let column of allColumns$ | async" class="column">
+    <app-board-column [column]="column" [boardId]="boardId"></app-board-column>
+  </div>
+</div>
+
+

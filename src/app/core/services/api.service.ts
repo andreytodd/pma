@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {EditUser, User} from "../../auth/models/auth.models";
 import {BehaviorSubject, Observable, of, Subscription} from "rxjs";
-import {BoardData, BoardFormData, CreateColumnModel, GetColumnsModel} from "../../boards/models/boards.model";
+import {
+  BoardData,
+  BoardFormData,
+  CreateColumnModel,
+  GetColumnsModel,
+  TaskModel
+} from "../../boards/models/boards.model";
 import {BoardComponent} from "../../boards/components/board/board.component";
 
 const USERS_API = 'http://localhost:3000/users';
 const BOARDS_API = 'http://localhost:3000/boards';
 const BOARDSET_API = 'http://localhost:3000/boardsSet';
+const COLUMNSSET_API = 'http://localhost:3000/columnsSet';
+const TASKSSET_API = 'http://localhost:3000/tasksSet';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +24,7 @@ const BOARDSET_API = 'http://localhost:3000/boardsSet';
 export class ApiService {
   allBoards$: BehaviorSubject<BoardData[]> = new BehaviorSubject<BoardData[]>([]);
   allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
+  allTasks$: BehaviorSubject<TaskModel[]> = new BehaviorSubject<TaskModel[]>([])
   currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{})
 
   constructor(private http: HttpClient) { }
@@ -71,12 +81,20 @@ export class ApiService {
 
   getBoardsByUserId(id: string): Observable<any> {
     this.http.get<any[]>(`${BOARDSET_API}/${id}`).subscribe((data) => {
-      this.allBoards$.next(data)})
-    return this.allBoards$
+      this.allBoards$.next(data)
+    })
+    return this.allBoards$;
   };
 
+  getBoardById(id: string): Observable<BoardData> {
+    return this.http.get<BoardData>(`${BOARDS_API}/${id}`)
+  }
+
   getAllColumnsInBoard(id: string): Observable<GetColumnsModel[]> {
-    return this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`);
+    this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
+      this.allColumns$.next(data)
+    })
+    return this.allColumns$;
   }
 
   createColumn(id: string, data: CreateColumnModel) {
@@ -90,8 +108,9 @@ export class ApiService {
 
   }
 
-  updateColumnById() {
-
+  getColumnByUserId(id: string) {
+    const params = new HttpParams().set('userId', id)
+    return this.http.get(`${COLUMNSSET_API}`, {params})
   }
 
   deleteColumnById(boardId: string, columnId: string) {
@@ -99,5 +118,16 @@ export class ApiService {
       const newColumnsList = this.allColumns$.getValue().filter((column) => column._id !== columnId)
       this.allColumns$.next(newColumnsList);
     })
+  }
+
+  getTasksByBoardI(boardId: string): Observable<TaskModel[]> {
+    return this.http.get<TaskModel[]>(`${TASKSSET_API}/${boardId}`)
+  }
+
+  createTask(boardId: string, columnId: string, data: TaskModel) {
+    this.http.post<TaskModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`, data).subscribe((task) => {
+      const newTaskList = [...this.allTasks$.getValue(), task]
+    })
+    return this.allTasks$;
   }
 }

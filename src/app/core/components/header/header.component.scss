@@ -1,0 +1,11 @@
+mat-toolbar ul {
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+mat-toolbar ul a {
+  color: #fff;
+  text-decoration: none;
+}

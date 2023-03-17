@@ -9,18 +9,12 @@ import {ConfirmationDialogComponent} from "../../../core/dialogs/confirmation-di
   templateUrl: './board-column.component.html',
   styleUrls: ['./board-column.component.scss']
 })
-export class BoardColumnComponent implements OnInit {
+export class BoardColumnComponent {
   @Input() column!: GetColumnsModel;
   @Input() boardId!: string;
   private allColumns: GetColumnsModel[] = [];
 
   constructor(private apiService: ApiService, private dialog: MatDialog) {}
-
-  ngOnInit() {
-    this.apiService.getAllColumnsInBoard(this.boardId).subscribe((data) => {
-      this.allColumns = data;
-    })
-  }
 
   deleteColumn() {
     this.apiService.deleteColumnById(this.boardId, this.column._id);

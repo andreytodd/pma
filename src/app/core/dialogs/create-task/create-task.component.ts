@@ -57,7 +57,7 @@ export class CreateTaskComponent implements OnInit {
       description: this.createTaskForm.value.description,
       userId: this.userId,
       users: ['640a10ad5b15d060be67ef95'],
-      order: this.allTasksArray.length + 1
+      order: this.allTasksArray.length
     }).subscribe()
     this.dialog.closeAll()
   }

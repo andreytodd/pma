@@ -1,7 +1,7 @@
 <div>
   <h3>{{boardName}}</h3>
   <button (click)="createColumn()">Create column</button>
-  <div  class="columns-all" cdkDropList>
+  <div  class="columns-all" cdkDropList (cdkDropListDropped)="drop($event)">
     <div *ngFor="let column of allColumns$ | async" class="column" cdkDrag >
       <app-board-column [column]="column" [boardId]="boardId" id="{{column._id"></app-board-column>
     </div>

@@ -7,6 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-column.component";
 import {ColumnIdService} from "../../services/column-id.service";
 import {CreateTaskComponent} from "../../../core/dialogs/create-task/create-task.component";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-board-page',
@@ -43,8 +44,11 @@ export class BoardPageComponent implements OnInit {
   createColumn() {
     const dialogRef = this.dialog.open(CreateColumnComponent);
     dialogRef.componentInstance.boardId = this.boardId;
-    dialogRef.componentInstance.order = this.allColumns.length + 1
+    dialogRef.componentInstance.order = this.allColumns.length
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.allColumns, event.previousIndex, event.currentIndex);
+  }
 
 }

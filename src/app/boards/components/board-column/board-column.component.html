@@ -3,11 +3,9 @@
     <p>Title: {{column.title}}</p>
     <p>Column order: {{column.order}}</p>
   </div>
-  <div>
-    <div class="tasks-list" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div  *ngFor="let task of (allTasksInColumn$ | async)" class="columns-all__column__task" cdkDrag id="{{task._id}}">
-        <app-task [task] = task (deleteTaskEmitter)="onDeleteTask($event)"></app-task>
-      </div>
+  <div class="tasks-list" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div  *ngFor="let task of (allTasksInColumn$ | async) | sort:'order' " class="columns-all__column__task" cdkDrag id="{{task._id}}">
+      <app-task [task] = task (deleteTaskEmitter)="onDeleteTask($event)"></app-task>
     </div>
   </div>
 

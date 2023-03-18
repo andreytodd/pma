@@ -40,3 +40,9 @@ export interface TaskModel {
   userId: string
   users: string[]
 }
+
+export interface PatchTasks {
+  _id: string
+  columnId: string
+  order: number
+}

@@ -6,7 +6,7 @@ import {
   BoardData,
   BoardFormData,
   CreateColumnModel,
-  GetColumnsModel,
+  GetColumnsModel, PatchTasks,
   TaskFormModel, TaskModel
 } from "../../boards/models/boards.model";
 import {BoardComponent} from "../../boards/components/board/board.component";
@@ -121,8 +121,8 @@ export class ApiService {
     })
   }
 
-  getTasksByBoardI(boardId: string): Observable<TaskFormModel[]> {
-    return this.http.get<TaskFormModel[]>(`${TASKSSET_API}/${boardId}`)
+  getTasksByBoardI(boardId: string): Observable<TaskModel[]> {
+    return this.http.get<TaskModel[]>(`${TASKSSET_API}/${boardId}`)
   }
 
   getTasksInColumn(boardId: string, columnId: string) {
@@ -135,6 +135,18 @@ export class ApiService {
 
   deleteTask(boardId: string, columnId: string, taskId: string) {
     return this.http.delete(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`)
+  }
+
+  updateTaskOrder(tasks: PatchTasks[]): Observable<TaskModel[]> {
+    const updatedTasks = tasks.map((task, index) => {
+      const { _id, columnId, order } = task;
+      return {
+        _id,
+        columnId,
+        order,
+      };
+    });
+    return this.http.patch<TaskModel[]>(TASKSSET_API, updatedTasks);
   }
 }
 

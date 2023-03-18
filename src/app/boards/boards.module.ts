@@ -7,6 +7,7 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardColumnComponent } from './components/board-column/board-column.component';
 import { TaskComponent } from './components/task/task.component';
 import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import { SortPipe } from './pipes/sort.pipe';
 
 
 
@@ -18,6 +19,7 @@ import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
     BoardPageComponent,
     BoardColumnComponent,
     TaskComponent,
+    SortPipe,
   ],
   imports: [
     CommonModule,

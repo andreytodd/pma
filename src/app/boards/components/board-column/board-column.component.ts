@@ -1,11 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {GetColumnsModel, TaskFormModel, TaskModel} from "../../models/boards.model";
 import {ApiService} from "../../../core/services/api.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationDialogComponent} from "../../../core/dialogs/confirmation-dialog/confirmation-dialog.component";
 import {CreateTaskComponent} from "../../../core/dialogs/create-task/create-task.component";
-import {BehaviorSubject} from "rxjs";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {BehaviorSubject, debounceTime} from "rxjs";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {ElementRef} from "@angular/core";
 
 @Component({
   selector: 'app-board-column',
@@ -19,7 +20,7 @@ export class BoardColumnComponent implements OnInit{
   allTasksInColumn!: TaskModel[]
   private allColumns: GetColumnsModel[] = [];
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private dialog: MatDialog, private el: ElementRef) {}
 
   ngOnInit() {
     this.apiService.getTasksInColumn(this.boardId, this.column._id).subscribe((tasks) => {
@@ -50,6 +51,7 @@ export class BoardColumnComponent implements OnInit{
       this.apiService.getTasksInColumn(this.boardId, this.column._id)
         .subscribe((tasks) => {
           this.allTasksInColumn$.next(tasks);
+          this.allTasksInColumn = tasks;
       })
     })
   }
@@ -68,9 +70,29 @@ export class BoardColumnComponent implements OnInit{
     })
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  async drop(event: CdkDragDrop<TaskModel[]>) {
+    if (!this.allTasksInColumn) {
+      return;
+    }
+
     moveItemInArray(this.allTasksInColumn, event.previousIndex, event.currentIndex);
-    console.log(event.item)
+
+    if (event.previousIndex !== event.currentIndex) {
+      const updatedTasks = this.allTasksInColumn.map((task, index) => {
+        const { _id, columnId } = task;
+        return {
+          _id,
+          columnId,
+          order: index
+        };
+      });
+
+      this.apiService.updateTaskOrder(updatedTasks)
+        .subscribe(tasks => {
+        this.allTasksInColumn$.next(tasks);
+      });
+    }
+
   }
 
 }

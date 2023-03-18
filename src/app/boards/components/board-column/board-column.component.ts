@@ -4,7 +4,7 @@ import {ApiService} from "../../../core/services/api.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationDialogComponent} from "../../../core/dialogs/confirmation-dialog/confirmation-dialog.component";
 import {CreateTaskComponent} from "../../../core/dialogs/create-task/create-task.component";
-import {BehaviorSubject, debounceTime} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {ElementRef} from "@angular/core";
 
@@ -70,12 +70,28 @@ export class BoardColumnComponent implements OnInit{
     })
   }
 
-  async drop(event: CdkDragDrop<TaskModel[]>) {
+  drop(event: CdkDragDrop<TaskModel[]>) {
     if (!this.allTasksInColumn) {
       return;
     }
 
-    moveItemInArray(this.allTasksInColumn, event.previousIndex, event.currentIndex);
+    this.allTasksInColumn$.subscribe(data => {
+      this.allTasksInColumn = data;
+    })
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(this.allTasksInColumn, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+
+
+
 
     if (event.previousIndex !== event.currentIndex) {
       const updatedTasks = this.allTasksInColumn.map((task, index) => {
@@ -92,7 +108,6 @@ export class BoardColumnComponent implements OnInit{
         this.allTasksInColumn$.next(tasks);
       });
     }
-
   }
 
 }

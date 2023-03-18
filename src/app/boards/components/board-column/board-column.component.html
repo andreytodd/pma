@@ -1,6 +1,22 @@
 <div class="columns-all__column">
-  <p>Title: {{column.title}}</p>
-  <p>Order: {{column.order}}</p>
-  <button (click)="showConfirmationDialog()">Delete column</button>
+  <div>
+    <p>Title: {{column.title}}</p>
+    <p>Column order: {{column.order}}</p>
+  </div>
+  <div>
+    <div class="tasks-list" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div  *ngFor="let task of (allTasksInColumn$ | async)" class="columns-all__column__task" cdkDrag id="{{task._id}}">
+        <app-task [task] = task (deleteTaskEmitter)="onDeleteTask($event)"></app-task>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div>
+    <button (click)="showConfirmationDialog()">Delete column</button>
+    <button (click)="createTaskDialog()">Create task</button>
+    <button (click)="showTasks()">Show task</button>
+  </div>
 </div>
 

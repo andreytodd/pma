@@ -1,12 +1,12 @@
-<p>{{boardName}}</p>
-<div *ngIf="allColumns.length !== 0">
-  <button>Add task</button>
-</div>
-<button (click)="createColumn()">Create column</button>
-<div class="columns-all">
-  <div *ngFor="let column of allColumns$ | async" class="column">
-    <app-board-column [column]="column" [boardId]="boardId"></app-board-column>
+<div>
+  <h3>{{boardName}}</h3>
+  <button (click)="createColumn()">Create column</button>
+  <div  class="columns-all" cdkDropList>
+    <div *ngFor="let column of allColumns$ | async" class="column" cdkDrag >
+      <app-board-column [column]="column" [boardId]="boardId" id="{{column._id"></app-board-column>
+    </div>
   </div>
 </div>
+
 
 

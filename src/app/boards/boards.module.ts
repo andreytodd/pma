@@ -5,6 +5,8 @@ import { BoardRoutingModule } from "./board-routing.module";
 import { BoardComponent } from './components/board/board.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardColumnComponent } from './components/board-column/board-column.component';
+import { TaskComponent } from './components/task/task.component';
+import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 
 
 
@@ -15,11 +17,15 @@ import { BoardColumnComponent } from './components/board-column/board-column.com
     BoardComponent,
     BoardPageComponent,
     BoardColumnComponent,
+    TaskComponent,
   ],
   imports: [
     CommonModule,
     BoardRoutingModule,
-    AsyncPipe
+    AsyncPipe,
+    CdkDrag,
+    CdkDropList,
+    CdkDropListGroup
   ],
   exports: [
     BoardsPageComponent,

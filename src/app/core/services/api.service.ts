@@ -7,7 +7,7 @@ import {
   BoardFormData,
   CreateColumnModel,
   GetColumnsModel,
-  TaskModel
+  TaskFormModel, TaskModel
 } from "../../boards/models/boards.model";
 import {BoardComponent} from "../../boards/components/board/board.component";
 
@@ -24,7 +24,8 @@ const TASKSSET_API = 'http://localhost:3000/tasksSet';
 export class ApiService {
   allBoards$: BehaviorSubject<BoardData[]> = new BehaviorSubject<BoardData[]>([]);
   allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
-  allTasks$: BehaviorSubject<TaskModel[]> = new BehaviorSubject<TaskModel[]>([])
+  allTasks$: BehaviorSubject<TaskFormModel[]> = new BehaviorSubject<TaskFormModel[]>([])
+  allTasksInColumn$: BehaviorSubject<TaskFormModel[]> = new BehaviorSubject<TaskFormModel[]>([])
   currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{})
 
   constructor(private http: HttpClient) { }
@@ -120,14 +121,20 @@ export class ApiService {
     })
   }
 
-  getTasksByBoardI(boardId: string): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${TASKSSET_API}/${boardId}`)
+  getTasksByBoardI(boardId: string): Observable<TaskFormModel[]> {
+    return this.http.get<TaskFormModel[]>(`${TASKSSET_API}/${boardId}`)
   }
 
-  createTask(boardId: string, columnId: string, data: TaskModel) {
-    this.http.post<TaskModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`, data).subscribe((task) => {
-      const newTaskList = [...this.allTasks$.getValue(), task]
-    })
-    return this.allTasks$;
+  getTasksInColumn(boardId: string, columnId: string) {
+    return this.http.get<TaskModel[]>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`)
+  }
+
+  createTask(boardId: string, columnId: string, data: TaskFormModel) {
+    return this.http.post<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`, data)
+  }
+
+  deleteTask(boardId: string, columnId: string, taskId: string) {
+    return this.http.delete(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`)
   }
 }
+

@@ -1,5 +1,18 @@
-<form [formGroup]="createTaskForm" (submit)="createTask()">
+<form [formGroup]="createTaskForm" (submit)="createNewTask()">
   <label>Title</label>
   <input formControlName="title">
+
+  <label>Description</label>
+  <input formControlName="description">
+
+  <div formArrayName="sharedUsers" *ngFor="let phone of sharedUsers.controls; let i = index">
+    <div [formGroupName]="i">
+
+      <label>Add user to the board</label>
+      <input formControlName="login" placeholder="Type user's login">
+
+    </div>
+  </div>
+  <a (click)="addUser()">Add</a>
   <button type="submit">Submit</button>
 </form>

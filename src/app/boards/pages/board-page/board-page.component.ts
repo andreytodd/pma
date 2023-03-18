@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-column.component";
 import {ColumnIdService} from "../../services/column-id.service";
+import {CreateTaskComponent} from "../../../core/dialogs/create-task/create-task.component";
 
 @Component({
   selector: 'app-board-page',
@@ -44,5 +45,6 @@ export class BoardPageComponent implements OnInit {
     dialogRef.componentInstance.boardId = this.boardId;
     dialogRef.componentInstance.order = this.allColumns.length + 1
   }
+
 
 }

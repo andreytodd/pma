@@ -3,6 +3,7 @@ import {ApiService} from "../../../core/services/api.service";
 import {User} from "../../../auth/models/auth.models";
 import {Observable} from "rxjs";
 import {TokenService} from "../../../auth/services/token.service";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 
 @Component({
@@ -30,5 +31,7 @@ export class BoardsPageComponent implements OnInit {
     this.apiService.getBoards()
       .subscribe(data => console.log(data))
   }
+
+
 
 }

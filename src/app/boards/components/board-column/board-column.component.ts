@@ -81,6 +81,21 @@ export class BoardColumnComponent implements OnInit{
 
     if (event.previousContainer === event.container) {
       moveItemInArray(this.allTasksInColumn, event.previousIndex, event.currentIndex);
+      if (event.previousIndex !== event.currentIndex) {
+        const updatedTasks = this.allTasksInColumn.map((task, index) => {
+          const { _id, columnId } = task;
+          return {
+            _id,
+            columnId,
+            order: index
+          };
+        });
+
+        this.apiService.updateTaskOrder(updatedTasks)
+          .subscribe(tasks => {
+            this.allTasksInColumn$.next(tasks);
+          });
+      }
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -88,26 +103,22 @@ export class BoardColumnComponent implements OnInit{
         event.previousIndex,
         event.currentIndex,
       );
-    }
-
-
-
-
-    if (event.previousIndex !== event.currentIndex) {
-      const updatedTasks = this.allTasksInColumn.map((task, index) => {
-        const { _id, columnId } = task;
+      const updatedTasks = event.container.data.map((task, index) => {
+        const { _id } = task;
         return {
           _id,
-          columnId,
+          columnId: this.column._id,
           order: index
         };
       });
 
-      this.apiService.updateTaskOrder(updatedTasks)
+      this.apiService.updateTaskColumns(updatedTasks)
         .subscribe(tasks => {
-        this.allTasksInColumn$.next(tasks);
-      });
+          this.allTasksInColumn$.next(tasks);
+        });
     }
+
+
   }
 
 }

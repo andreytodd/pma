@@ -148,5 +148,9 @@ export class ApiService {
     });
     return this.http.patch<TaskModel[]>(TASKSSET_API, updatedTasks);
   }
+
+  updateTaskColumns(tasks: PatchTasks[]): Observable<TaskModel[]> {
+    return this.updateTaskOrder(tasks);
+  }
 }
 

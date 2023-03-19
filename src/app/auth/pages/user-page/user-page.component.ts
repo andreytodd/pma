@@ -35,12 +35,13 @@ export class UserPageComponent implements OnInit{
   }
 
   deleteUser() {
-    this.apiService.deleteUser(this.tokenService.getCurrentUserId()).subscribe(() => {
-      this.tokenService.signOut();
-      this.router.navigate([''])
-      window.location.reload();
-    },
-      error => alert(error.message)
+    this.apiService.deleteUser(this.tokenService.getCurrentUserId()).subscribe(() => {},
+      error => alert(error.message),
+      () => {
+        this.tokenService.signOut();
+        window.location.reload();
+        this.router.navigate([''])
+      }
     )
 
 

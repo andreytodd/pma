@@ -2,13 +2,17 @@
   <label>Title</label>
   <input formControlName="title">
 
-  <div formArrayName="sharedUsers" *ngFor="let phone of sharedUsers.controls; let i = index">
+  <div formArrayName="sharedUsers" *ngFor="let user of sharedUsers.controls; let i = index">
     <div [formGroupName]="i">
 
-      <label>Add user to the board</label>
-      <input formControlName="login" placeholder="Type user's login">
+      <label>
+        <select formControlName="login">
+          <option *ngFor="let user of allUsers" [value]="user.login">{{user.login}}</option>
+        </select>
+      </label>
 
     </div>
+
   </div>
   <a (click)="addUser()">Add</a>
   <button type="submit">Submit</button>

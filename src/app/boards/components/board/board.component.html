@@ -1,5 +1,12 @@
 <div class="boards-page__board" (click)="openBoardCard()">
   <p>{{board.title}}</p>
+  <ng-container *ngIf="sharedUsers$ | async">
+    <p>This board is shared with {{sharedUsers$ | async}}</p>
+  </ng-container>
+  <ng-container *ngIf="sharedUsers$.getValue().length === 0">
+    <p>This is your private board</p>
+  </ng-container>
+
   <button (click)="updateBoard(); $event.stopPropagation()">Edit</button>
   <button (click)="showConfirmationDialog(); $event.stopPropagation()">Delete</button>
 </div>

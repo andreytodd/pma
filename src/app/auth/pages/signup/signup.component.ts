@@ -19,13 +19,13 @@ export class SignupComponent implements OnInit {
           '',
           [
             Validators.required,
-            Validators.minLength(4),
+            Validators.minLength(1),
             Validators.maxLength(20)
           ]
         ],
         password: ['', [
           Validators.required,
-          Validators.minLength(3),
+          Validators.minLength(1),
           Validators.maxLength(20)
         ]],
         confirmPassword: ['', Validators.required]

@@ -1,5 +1,6 @@
 <button (click)="getUsers()">Get Users</button>
 <button (click)="getAllBoards()">Get all Boards</button>
+<button (click)="showModal()">Create Board</button>
 
 <div *ngFor="let board of (allBoards$ | async)">
   <app-board [board]="board"></app-board>

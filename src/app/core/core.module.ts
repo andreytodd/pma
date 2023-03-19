@@ -14,6 +14,7 @@ import { CreateColumnComponent } from './dialogs/create-column/create-column.com
 import { EditUserComponent } from './dialogs/edit-user/edit-user.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { CreateTaskComponent } from './dialogs/create-task/create-task.component';
+import { ErrorMessageComponent } from './dialogs/error-message/error-message.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { CreateTaskComponent } from './dialogs/create-task/create-task.component
     CreateColumnComponent,
     EditUserComponent,
     CreateTaskComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     CommonModule,

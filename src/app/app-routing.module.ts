@@ -13,11 +13,6 @@ const routes: Routes = [
   {path: 'auth/signup', component: SignupComponent, canActivate: [LoggedInGuard]},
   { path: 'user/settings', component: UserPageComponent, canActivate: [AuthGuard] },
   {path: 'boards', loadChildren: () => import('./boards/boards.module').then(m => m.BoardsModule)},
-  // {
-  //   path: 'boards',
-  //   component: BoardsPageComponent,
-  //   canActivate: [AuthGuard]
-  // }
 ];
 
 @NgModule({

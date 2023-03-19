@@ -23,10 +23,4 @@ export class HeaderComponent {
     this.authService.signOut();
   }
 
-
-  showModal() {
-      this.dialog.open(CreateBoardComponent);
-  }
-
-
 }

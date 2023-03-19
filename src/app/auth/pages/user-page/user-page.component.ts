@@ -5,6 +5,8 @@ import {TokenService} from "../../services/token.service";
 import {BehaviorSubject} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {EditUserComponent} from "../../../core/dialogs/edit-user/edit-user.component";
+import {ConfirmationDialogComponent} from "../../../core/dialogs/confirmation-dialog/confirmation-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-page',
@@ -17,7 +19,8 @@ export class UserPageComponent implements OnInit{
   constructor(
     private apiService: ApiService,
     private tokenService: TokenService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
   }
 
@@ -29,5 +32,27 @@ export class UserPageComponent implements OnInit{
   editUser() {
     const dialogRef = this.dialog.open(EditUserComponent);
     dialogRef.componentInstance.userId = this.currentUser$.getValue()._id
+  }
+
+  deleteUser() {
+    this.apiService.deleteUser(this.tokenService.getCurrentUserId()).subscribe(() => {
+      this.tokenService.signOut();
+      this.router.navigate([''])
+      window.location.reload();
+    },
+      error => alert(error.message)
+    )
+
+
+  }
+
+  showConfirmationDialog() {
+    const dialogRef =  this.dialog.open(ConfirmationDialogComponent);
+    dialogRef.componentInstance.confirmationMessage = 'Are you sure you want to delete your profile?';
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteUser()
+      }
+    })
   }
 }

@@ -3,7 +3,8 @@ import {ApiService} from "../../../core/services/api.service";
 import {User} from "../../../auth/models/auth.models";
 import {Observable} from "rxjs";
 import {TokenService} from "../../../auth/services/token.service";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {CreateBoardComponent} from "../../../core/dialogs/create-board/create-board.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -13,7 +14,11 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 })
 export class BoardsPageComponent implements OnInit {
   allBoards$!: Observable<any>;
-  constructor(private apiService: ApiService, private tokenService: TokenService) {
+  constructor(
+    private apiService: ApiService,
+    private tokenService: TokenService,
+    private dialog: MatDialog
+  ) {
   }
 
   ngOnInit() {
@@ -32,6 +37,8 @@ export class BoardsPageComponent implements OnInit {
       .subscribe(data => console.log(data))
   }
 
-
+  showModal() {
+    this.dialog.open(CreateBoardComponent);
+  }
 
 }

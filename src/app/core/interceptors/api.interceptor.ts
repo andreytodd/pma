@@ -6,7 +6,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {TokenService} from "../../auth/services/token.service";
 import {Router} from "@angular/router";
 
@@ -21,24 +21,11 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let authReq = request;
-    // const token = this.tokenService.getToken().getValue();
-    // if (token !== null && this.isTokenExpired(token)) {
-    //   authReq = request.clone({
-    //     setHeaders: {
-    //       Authorization: `Bearer ${token}`
-    //     }
-    //   });
-    //   return next.handle(authReq);
-    // } else {
-    //   this.tokenService.signOut();
-    //   this.router.navigate(['/auth/login'])
-    // }
-    // return next.handle(authReq);
+
+
 
     const token = this.tokenService.getToken().getValue();
     if (token !== null && !this.isTokenExpired(token)) {
-      // Token is expired, sign out and redirect to welcome page
       this.tokenService.signOut();
       this.router.navigate(['/auth/login']);
       return throwError('Token expired');
@@ -48,9 +35,30 @@ export class ApiInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${token}`
         }
       });
-      return next.handle(authReq);
+      return next.handle(authReq)
+        .pipe(
+          catchError((error) => {
+            alert(error.error.message)
+            return throwError(error.error.message);
+          })
+        )
     } else {
       return next.handle(request);
     }
   }
 }
+
+// let authReq = request;
+// const token = this.tokenService.getToken().getValue();
+// if (token !== null && this.isTokenExpired(token)) {
+//   authReq = request.clone({
+//     setHeaders: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   });
+//   return next.handle(authReq);
+// } else {
+//   this.tokenService.signOut();
+//   this.router.navigate(['/auth/login'])
+// }
+// return next.handle(authReq);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {EditUser, User} from "../../auth/models/auth.models";
-import {BehaviorSubject, Observable, of, Subscription} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {
   BoardData,
   BoardFormData,
@@ -9,7 +9,7 @@ import {
   GetColumnsModel, PatchColumns, PatchTasks,
   TaskFormModel, TaskModel
 } from "../../boards/models/boards.model";
-import {BoardComponent} from "../../boards/components/board/board.component";
+import {MatDialog} from "@angular/material/dialog";
 
 const USERS_API = 'http://localhost:3000/users';
 const BOARDS_API = 'http://localhost:3000/boards';
@@ -24,11 +24,12 @@ const TASKSSET_API = 'http://localhost:3000/tasksSet';
 export class ApiService {
   allBoards$: BehaviorSubject<BoardData[]> = new BehaviorSubject<BoardData[]>([]);
   allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
-  allTasks$: BehaviorSubject<TaskFormModel[]> = new BehaviorSubject<TaskFormModel[]>([])
-  allTasksInColumn$: BehaviorSubject<TaskFormModel[]> = new BehaviorSubject<TaskFormModel[]>([])
   currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{})
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private dialog: MatDialog
+  ) { }
 
 
   getUsers(): Observable<any> {
@@ -43,10 +44,15 @@ export class ApiService {
   }
 
   editUser(id: string, data: EditUser) {
-    this.http.put<User>(`${USERS_API}/${id}`, data).subscribe((user) => {
+    this.http.put<User>(`${USERS_API}/${id}/bla`, data).subscribe((user) => {
         this.currentUser$.next(user);
-      }
+      },
+      error => console.log(error)
     )
+  }
+
+  deleteUser(userId: string) {
+    return this.http.delete(`${USERS_API}/${userId}`)
   }
 
   requestBoards(): void {
@@ -103,10 +109,6 @@ export class ApiService {
       const newColumnsList =  [...this.allColumns$.getValue(), data];
       this.allColumns$.next(newColumnsList);
     })
-  }
-
-  getColumnById() {
-
   }
 
   getColumnByUserId(id: string) {

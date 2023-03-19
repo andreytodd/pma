@@ -1,13 +1,12 @@
-import {Component, OnInit, Input, DoCheck, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import { GetColumnsModel } from "../../models/boards.model";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-column.component";
 import {ColumnIdService} from "../../services/column-id.service";
-import {CreateTaskComponent} from "../../../core/dialogs/create-task/create-task.component";
-import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-board-page',
@@ -19,7 +18,8 @@ export class BoardPageComponent implements OnInit {
   boardId: string = this.activatedRoute.snapshot.params['id'];
   boardName!: string;
 
-  allColumns$!: Observable<GetColumnsModel[]>
+  // allColumns$!: Observable<GetColumnsModel[]>
+  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
   allColumns!: GetColumnsModel[];
   constructor(
     private apiService: ApiService,
@@ -32,9 +32,12 @@ export class BoardPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.allColumns$ = this.apiService.getAllColumnsInBoard(this.boardId);
-    this.allColumns$.subscribe((data) => {
-      this.allColumns = data;
+    // this.allColumns$ = this.apiService.getAllColumnsInBoard(this.boardId);
+    // this.allColumns$.subscribe((data) => {
+    //   this.allColumns = data;
+    // })
+    this.apiService.getAllColumnsInBoard(this.boardId).subscribe((columns) => {
+      this.allColumns$.next(columns);
     })
     this.apiService.getBoardById(this.boardId).subscribe((board) => {
       this.boardName = board.title;
@@ -47,8 +50,30 @@ export class BoardPageComponent implements OnInit {
     dialogRef.componentInstance.order = this.allColumns.length
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.allColumns, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<any>) {
+
+    this.allColumns$.subscribe((columns) => {
+      this.allColumns = columns;
+    })
+
+    if (!this.allColumns) {
+      return;
+    }
+      moveItemInArray(this.allColumns, event.previousIndex, event.currentIndex);
+      if (event.previousIndex !== event.currentIndex) {
+        const updatedColumns = this.allColumns.map((column, index) => {
+          const {_id} = column;
+          return {
+            _id,
+            order: index
+          };
+        });
+
+        this.apiService.updateColumns(updatedColumns)
+          .subscribe(columns => {
+            this.allColumns$.next(columns);
+          });
+      }
   }
 
 }

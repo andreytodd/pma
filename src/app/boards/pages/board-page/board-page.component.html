@@ -1,12 +1,15 @@
 <div>
   <h3>{{boardName}}</h3>
   <button (click)="createColumn()">Create column</button>
-  <div class="columns-all" cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-<!--    <div *ngFor="let column of allColumns$ | async" class="column" cdkDrag>-->
+  <div class="columns-all" cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" cdkDrag>
+
       <app-board-column *ngFor="let column of allColumns$ | async" class="column" cdkDrag [column]="column" [boardId]="boardId" [attr.data-id]='column._id'></app-board-column>
-<!--    </div>-->
+
   </div>
 </div>
+
+<!--    <div *ngFor="let column of allColumns$ | async" class="column" cdkDrag>-->
+<!--    </div>-->
 
 
 

@@ -6,7 +6,7 @@ import {
   BoardData,
   BoardFormData,
   CreateColumnModel,
-  GetColumnsModel, PatchTasks,
+  GetColumnsModel, PatchColumns, PatchTasks,
   TaskFormModel, TaskModel
 } from "../../boards/models/boards.model";
 import {BoardComponent} from "../../boards/components/board/board.component";
@@ -147,6 +147,21 @@ export class ApiService {
       };
     });
     return this.http.patch<TaskModel[]>(TASKSSET_API, updatedTasks);
+  }
+
+  updateColumnsOrder(columns: PatchColumns[]) {
+    const updatedColumns = columns.map((column, index) => {
+      const { _id, order } = column;
+      return {
+        _id,
+        order,
+      };
+    });
+    return this.http.patch<GetColumnsModel[]>(COLUMNSSET_API, updatedColumns);
+  }
+
+  updateColumns(columns: PatchColumns[]) {
+    return this.updateColumnsOrder(columns)
   }
 
   updateTaskColumns(tasks: PatchTasks[]): Observable<TaskModel[]> {

@@ -46,3 +46,8 @@ export interface PatchTasks {
   columnId: string
   order: number
 }
+
+export interface PatchColumns {
+  _id: string
+  order: number
+}

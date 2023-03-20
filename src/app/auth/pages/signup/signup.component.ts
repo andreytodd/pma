@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import { FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {confirmPasswordValidator} from "../../directives/confirm-password.directive";
 
 @Component({
   selector: 'app-signup',
@@ -14,14 +15,12 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.newUserForm = this.formBuilder.group({
-        name: ['', Validators.required],
-        login: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(1),
-            Validators.maxLength(20)
-          ]
+        name: ['', Validators.compose([Validators.required, Validators.minLength(4)]) ],
+        login: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20)
+        ])
         ],
         password: ['', [
           Validators.required,
@@ -29,6 +28,9 @@ export class SignupComponent implements OnInit {
           Validators.maxLength(20)
         ]],
         confirmPassword: ['', Validators.required]
+      },
+      {
+        validators: confirmPasswordValidator
       }
     );
   }
@@ -39,24 +41,30 @@ export class SignupComponent implements OnInit {
   }
 
   signUp(): void {
-    const {name, login, password} = this.newUserForm.value
-    this.authService.signUp(name, login, password).subscribe(
-          () => {
-            alert('Registration successful')
-          },
-          (error) => {
-            this.newUserForm.reset()
-            alert(error.error.message);
-          }
-        )
-    this.newUserForm.reset()
+    if (this.newUserForm.valid) {
+      const {name, login, password} = this.newUserForm.value
+      this.authService.signUp(name, login, password).subscribe(
+        () => {
+          alert('Registration successful')
+        },
+        (error) => {
+          this.newUserForm.reset()
+          alert(error.error.message);
+        }
+      )
+      this.newUserForm.reset()
+    } else {
+      alert('Invalid form')
+      this.newUserForm.reset()
+    }
+
   }
   get form() {
     return this.newUserForm.controls;
   }
 
   print() {
-    console.log(this.newUserForm.controls)
+    console.log(this.newUserForm.valid)
   }
 
 }

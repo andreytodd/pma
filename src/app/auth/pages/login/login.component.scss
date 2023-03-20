@@ -1,5 +1,26 @@
-:host {
+.form-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+
+.login-form {
+  width: 40vw;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948;
+}
+
+.alert-danger {
+  background-color: #fed3d3;
+  color: #820000;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }

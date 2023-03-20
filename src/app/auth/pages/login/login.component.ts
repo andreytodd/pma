@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup = new FormGroup({});
   hide = true;
+  submitted = false;
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

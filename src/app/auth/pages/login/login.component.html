@@ -1,18 +1,30 @@
-<form (submit)="signIn()" [formGroup]="loginForm">
-  <mat-form-field>
-  <mat-label>Login:</mat-label>
-  <input matInput type="text"  placeholder="Login" formControlName="login">
-  </mat-form-field>
-<mat-form-field>
-  <mat-label>Password:</mat-label>
-  <input matInput [type]="hide ? 'password' : 'text'"  placeholder="Password" formControlName="password">
-  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-  </button>
-</mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Sign Up</button>
+<div class="form-wrapper">
+  <form class="login-form" (submit)="signIn()" [formGroup]="loginForm">
+    <mat-form-field>
+      <mat-label>Login:</mat-label>
+      <input matInput type="text"  placeholder="Login" formControlName="login">
+    </mat-form-field>
+    <span class="alert-danger" *ngIf="(loginForm.controls['login'].touched || submitted)
+      && loginForm.controls['login'].errors?.['required']">
+        Login is required
+    </span>
 
-</form>
+    <mat-form-field>
+      <mat-label>Password:</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'"  placeholder="Password" formControlName="password">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <span class="alert-danger" *ngIf="(loginForm.controls['password'].touched || submitted)
+      && loginForm.controls['password'].errors?.['required']">
+        Password is required
+    </span>
+
+    <button mat-raised-button color="primary" type="submit">Sign Up</button>
+
+  </form>
+</div>
 
 
 

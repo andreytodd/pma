@@ -8,10 +8,10 @@ import {UserPageComponent} from "./auth/pages/user-page/user-page.component";
 import {AuthGuard} from "./auth/guards/auth.guard";
 
 const routes: Routes = [
-  {path: '', component: WelcomeComponent},
+  {path: '', component: WelcomeComponent, canActivate: [LoggedInGuard]},
   {path: 'auth/login', component: LoginComponent, canActivate: [LoggedInGuard]},
   {path: 'auth/signup', component: SignupComponent, canActivate: [LoggedInGuard]},
-  { path: 'user/settings', component: UserPageComponent, canActivate: [AuthGuard] },
+  {path: 'user/settings', component: UserPageComponent, canActivate: [AuthGuard] },
   {path: 'boards', loadChildren: () => import('./boards/boards.module').then(m => m.BoardsModule)},
 ];
 

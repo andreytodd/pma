@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpHeaders, HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TokenService} from "./token.service";
+import {Router} from "@angular/router";
 
 const AUTH_API = 'http://localhost:3000/auth/'
 const httpOptions = {
@@ -13,7 +14,12 @@ const httpOptions = {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService,
+    private router: Router
+
+  ) { }
 
   signIn(login: string, password: string): Observable<any> {
     return this.http.post(AUTH_API + 'signin', {
@@ -33,6 +39,7 @@ export class AuthService {
   signOut() {
     this.tokenService.signOut();
     window.location.reload();
+
   }
 
 }

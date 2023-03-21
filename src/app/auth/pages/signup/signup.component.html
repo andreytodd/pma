@@ -1,6 +1,6 @@
 <div class="form-wrapper">
   <form class="signup-form" (ngSubmit)="signUp()" [formGroup]="newUserForm">
-    <mat-form-field>
+    <mat-form-field class="form-field">
       <mat-label>Name:</mat-label>
       <input matInput type="text" id="name" formControlName="name">
     </mat-form-field>
@@ -10,7 +10,7 @@
     </span>
 
 
-    <mat-form-field>
+    <mat-form-field class="form-field">
       <mat-label>Login:</mat-label>
       <input matInput type="text" formControlName="login">
     </mat-form-field>
@@ -20,18 +20,18 @@
     </span>
 
 
-    <mat-form-field>
+    <mat-form-field class="form-field">
       <mat-label>Password:</mat-label>
       <input matInput type="password" formControlName="password">
     </mat-form-field>
     <span class="alert-danger" *ngIf="(newUserForm.controls['password'].touched || submitted)
       && newUserForm.controls['password'].errors?.['required']">
-        Login is required
+        Password is required
     </span>
 
 
 
-    <mat-form-field>
+    <mat-form-field class="form-field">
       <mat-label>Confirm password:</mat-label>
       <input matInput type="password" formControlName="confirmPassword">
     </mat-form-field>
@@ -41,10 +41,8 @@
     </span>
 
 
-    <button mat-raised-button color="primary" type="submit">Sign Up</button>
+    <button mat-raised-button class="form-button" color="primary" type="submit">Sign Up</button>
   </form>
 </div>
-
-<button (click)="print()">Print</button>
 
 

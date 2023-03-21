@@ -27,7 +27,8 @@ export class ApiInterceptor implements HttpInterceptor {
     const token = this.tokenService.getToken().getValue();
     if (token !== null && !this.isTokenExpired(token)) {
       this.tokenService.signOut();
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['']);
+      window.location.reload();
       return throwError('Token expired');
     } else if (token !== null) {
       const authReq = request.clone({

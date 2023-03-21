@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import {TokenService} from "../../../auth/services/token.service";
 import {AuthService} from "../../../auth/services/auth.service";
-import { MatDialog } from '@angular/material/dialog';
-import {CreateBoardComponent} from "../../dialogs/create-board/create-board.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -14,7 +13,8 @@ export class HeaderComponent {
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
-    private dialog: MatDialog
+    private router: Router
+
   ) {}
 
   public token = this.tokenService.getToken()

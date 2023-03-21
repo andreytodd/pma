@@ -1,27 +1,31 @@
-<mat-toolbar color="primary">
-  <div id="header">
-    <div *ngIf="!(token | async)">
-      <ul>
-        <li>
-          <a routerLink="/auth/login">Log In</a>
-        </li>
-        <li>
-          <a routerLink="/auth/signup">Sign Up</a>
-        </li>
-      </ul>
+<mat-toolbar class="custom-toolbar">
+  <header>
+    <h1 routerLink="/">Project management app</h1>
+    <div class="header-controls-wrapper">
+      <div *ngIf="!(token | async)">
+        <ul>
+          <li>
+            <a routerLink="/auth/login">Log In</a>
+          </li>
+          <li>
+            <a routerLink="/auth/signup">Sign Up</a>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="token | async">
+        <ul>
+          <li>
+            <a routerLink="/boards">Go to main</a>
+          </li>
+          <li>
+            <a routerLink="user/settings">Settings</a>
+          </li>
+          <li>
+            <a (click)="signOut()">Sign Out</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div *ngIf="token | async">
-      <ul>
-        <li>
-          <a routerLink="/boards">Go to main</a>
-        </li>
-        <li>
-          <a routerLink="user/settings">Settings</a>
-        </li>
-        <li>
-          <a (click)="signOut()">Sign Out</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+
+  </header>
 </mat-toolbar>

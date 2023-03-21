@@ -8,13 +8,20 @@
 
 .signup-form {
   width: 40vw;
+  height: auto;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border-radius: 8px;
   padding: 20px;
+  position: relative;
+  background-color: #9599E2;
 }
 
-.ng-valid[required], .ng-valid.required  {
+.form-field, .form-button {
+  opacity: 1;
+}
+
+.ng-valid[minLength], .ng-valid.minLength  {
   border-left: 5px solid #42A948;
 }
 

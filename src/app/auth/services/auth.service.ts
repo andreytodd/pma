@@ -38,8 +38,7 @@ export class AuthService {
 
   signOut() {
     this.tokenService.signOut();
-    window.location.reload();
-
+    this.router.navigate([''])
   }
 
 }

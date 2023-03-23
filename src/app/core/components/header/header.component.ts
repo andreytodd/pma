@@ -21,6 +21,8 @@ export class HeaderComponent {
 
   signOut() {
     this.authService.signOut();
+    window.location.reload()
+    this.router.navigate([''])
   }
 
 }

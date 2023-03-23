@@ -12,7 +12,7 @@ import {User} from "../../../auth/models/auth.models";
 })
 export class CreateBoardComponent implements OnInit{
 
-  allUsers!: User[]
+  allUsers!: User[];
   currentUserId!: string;
   constructor(
     private dialog: MatDialog,
@@ -51,6 +51,9 @@ export class CreateBoardComponent implements OnInit{
     const userLogins = this.createBoardForm.value.sharedUsers?.map((user) => {
       return user.login
     })
+    if(!this.createBoardForm.value.title) {
+      this.createBoardForm.value.title = 'New board without name'
+    }
     const users = this.allUsers
       .filter((user) => userLogins?.includes(user.login))
       .map((user: User) => user._id)

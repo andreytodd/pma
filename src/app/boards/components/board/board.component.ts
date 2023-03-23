@@ -35,6 +35,7 @@ export class BoardComponent implements OnInit{
           })
           .join(', ')
       this.sharedUsers$.next(sharedUsers)
+
     })
 
   }

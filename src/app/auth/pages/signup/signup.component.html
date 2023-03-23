@@ -8,6 +8,14 @@
       && newUserForm.controls['name'].errors?.['required']">
         Name is required
     </span>
+    <span class="alert-danger" *ngIf="(newUserForm.controls['name'].touched || submitted)
+      && newUserForm.controls['name'].errors?.['minlength']">
+        Name is too short
+    </span>
+    <span class="alert-danger" *ngIf="(newUserForm.controls['name'].touched || submitted)
+      && newUserForm.controls['name'].errors?.['maxlength']">
+        Name is too long
+    </span>
 
 
     <mat-form-field class="form-field">
@@ -18,6 +26,14 @@
       && newUserForm.controls['login'].errors?.['required']">
         Login is required
     </span>
+    <span class="alert-danger" *ngIf="(newUserForm.controls['login'].touched || submitted)
+      && newUserForm.controls['login'].errors?.['minlength']">
+        Login is too short
+    </span>
+    <span class="alert-danger" *ngIf="(newUserForm.controls['login'].touched || submitted)
+      && newUserForm.controls['login'].errors?.['maxlength']">
+        Login is too long
+    </span>
 
 
     <mat-form-field class="form-field">
@@ -27,6 +43,14 @@
     <span class="alert-danger" *ngIf="(newUserForm.controls['password'].touched || submitted)
       && newUserForm.controls['password'].errors?.['required']">
         Password is required
+    </span>
+    <span class="alert-danger" *ngIf="(newUserForm.controls['password'].touched || submitted)
+      && newUserForm.controls['password'].errors?.['minlength']">
+        Password is too short
+    </span>
+    <span class="alert-danger" *ngIf="(newUserForm.controls['password'].touched || submitted)
+      && newUserForm.controls['password'].errors?.['maxlength']">
+        Password is too long
     </span>
 
 

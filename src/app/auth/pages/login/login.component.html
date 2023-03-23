@@ -8,6 +8,14 @@
       && loginForm.controls['login'].errors?.['required']">
         Login is required
     </span>
+    <span class="alert-danger" *ngIf="(loginForm.controls['login'].touched || submitted)
+      && loginForm.controls['login'].errors?.['minlength']">
+        Login is too short
+    </span>
+    <span class="alert-danger" *ngIf="(loginForm.controls['login'].touched || submitted)
+      && loginForm.controls['login'].errors?.['maxlength']">
+        Login is too long
+    </span>
 
     <mat-form-field>
       <mat-label>Password:</mat-label>

@@ -4,7 +4,6 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
 import {ApiService} from "../../../core/services/api.service";
-import {MatLabel} from "@angular/material/form-field";
 
 @Component({
   selector: 'app-login',
@@ -19,12 +18,18 @@ export class LoginComponent implements OnInit{
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      login: ['', Validators.compose([Validators.required, Validators.minLength(4)]) ],
+      login: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+          Validators.maxLength(20)
+
+        ],
+
+        ) ],
       password: ['', Validators.compose([Validators.required, Validators.minLength(5)]) ]
     })
   }
 
-  loginFailed = false
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,

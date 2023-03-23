@@ -44,7 +44,7 @@ export class ApiService {
   }
 
   editUser(id: string, data: EditUser) {
-    this.http.put<User>(`${USERS_API}/${id}/bla`, data).subscribe((user) => {
+    this.http.put<User>(`${USERS_API}/${id}`, data).subscribe((user) => {
         this.currentUser$.next(user);
       },
       error => console.log(error)

@@ -8,6 +8,8 @@ import { BoardColumnComponent } from './components/board-column/board-column.com
 import { TaskComponent } from './components/task/task.component';
 import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import { SortPipe } from './pipes/sort.pipe';
+import {FormsModule} from "@angular/forms";
+import {MatIconModule} from "@angular/material/icon";
 
 
 
@@ -27,7 +29,9 @@ import { SortPipe } from './pipes/sort.pipe';
     AsyncPipe,
     CdkDrag,
     CdkDropList,
-    CdkDropListGroup
+    CdkDropListGroup,
+    FormsModule,
+    MatIconModule
   ],
   exports: [
     BoardsPageComponent,

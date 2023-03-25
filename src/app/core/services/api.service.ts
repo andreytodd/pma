@@ -5,11 +5,11 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {
   BoardData,
   BoardFormData,
-  CreateColumnModel,
+  CreateColumnModel, EditTaskModel,
   GetColumnsModel, PatchColumns, PatchTasks,
-  TaskFormModel, TaskModel
+  TaskFormModel, TaskModel, UpdateColumnData
 } from "../../boards/models/boards.model";
-import {MatDialog} from "@angular/material/dialog";
+
 
 const USERS_API = 'http://localhost:3000/users';
 const BOARDS_API = 'http://localhost:3000/boards';
@@ -28,7 +28,6 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private dialog: MatDialog
   ) { }
 
 
@@ -37,7 +36,8 @@ export class ApiService {
   }
 
   getUserById(id: string): BehaviorSubject<User> {
-    this.http.get<User>(`${USERS_API}/${id}`).subscribe((user) => {
+    this.http.get<User>(`${USERS_API}/${id}`)
+      .subscribe((user) => {
       this.currentUser$.next(user);
     })
     return this.currentUser$
@@ -46,8 +46,7 @@ export class ApiService {
   editUser(id: string, data: EditUser) {
     this.http.put<User>(`${USERS_API}/${id}`, data).subscribe((user) => {
         this.currentUser$.next(user);
-      },
-      error => console.log(error)
+      }
     )
   }
 
@@ -55,11 +54,6 @@ export class ApiService {
     return this.http.delete(`${USERS_API}/${userId}`)
   }
 
-  requestBoards(): void {
-    this.http.get<any[]>(BOARDS_API).subscribe((data) => {
-      this.allBoards$.next(data)
-    })
-  }
 
   getBoards(): Observable<any> {
     return this.allBoards$;
@@ -111,6 +105,10 @@ export class ApiService {
     })
   }
 
+  updateColumn(boardId: string, columnId: string, data: UpdateColumnData) {
+    return  this.http.put<UpdateColumnData>(`${BOARDS_API}/${boardId}/columns/${columnId}`, data)
+  }
+
   getColumnByUserId(id: string) {
     const params = new HttpParams().set('userId', id)
     return this.http.get(`${COLUMNSSET_API}`, {params})
@@ -137,6 +135,10 @@ export class ApiService {
 
   deleteTask(boardId: string, columnId: string, taskId: string) {
     return this.http.delete(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`)
+  }
+
+  editTask(boardId: string, columnId: string, taskId: string, data: EditTaskModel) {
+    return this.http.put(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`, data)
   }
 
   updateTaskOrder(tasks: PatchTasks[]): Observable<TaskModel[]> {

@@ -1,6 +1,13 @@
-<div class="task">
-  <p>Title: {{task.title}}</p>
-  <p>Description: {{task.description}}</p>
-  <p>Order: {{task.order}}</p>
-  <button (click)="showConfirmationDialog()">Delete task</button>
+<div class="task" (click)="showEditTask()">
+  <div class="task-title">
+    <p>Title: {{task.title}}</p>
+  </div>
+  <div class="task-description">
+    <p>About: {{task.description}}</p>
+  </div>
+  <div class="task-delete">
+    <mat-icon (click)="showConfirmationDialog(); $event.stopPropagation()">delete</mat-icon>
+  </div>
+
+
 </div>

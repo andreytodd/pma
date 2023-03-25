@@ -1,7 +1,32 @@
-.columns-all__column {
-  width: 200px;
-  border: 1px solid black;
-  height: 80vh;
+.board-column__column {
+  min-width: 200px;
+  max-width: 200px;
+  height: 65vh;
+  border: 1px solid #93A1E3;
+  background: radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%);
+  margin: 10px;
+  border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+.board-column__column:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.tasks-list {
+  min-height: 50vh;
+  max-height: 50vh;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  align-items: center;
 }
 
 .columns-all {

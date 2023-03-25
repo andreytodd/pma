@@ -1,4 +1,31 @@
 .task {
   border: 1px solid grey;
-  width: 200px;
+  width: 188px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #deebdd;
+  background-image: linear-gradient(315deg, #deebdd 0%, #bbdbbe 74%);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.task:hover {
+  transform: scale(1.03);
+}
+
+.task-description p {
+  font-size: 14px;
+  font-style: italic;
+  margin: 3px;
+}
+
+.task-delete {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 0 15px 10px 0;
 }

@@ -1,15 +1,15 @@
-<div>
+<div class="board-page-wrapper">
   <h3>{{boardName}}</h3>
-  <button (click)="createColumn()">Create column</button>
-  <div class="columns-all" cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" cdkDrag>
 
-      <app-board-column *ngFor="let column of allColumns$ | async | sort: 'order'" class="column" cdkDrag [column]="column" [boardId]="boardId" [attr.data-id]='column._id'></app-board-column>
+  <div class="columns-all" cdkDropList cdkDropListGroup cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" cdkDrag>
+    <div title="Create new column" (click)="createColumn()" class="board-page__create-column"  >
+      <mat-icon class="create-column__icon" data-hover="Create new column">add_circle</mat-icon>
+    </div>
+
+    <app-board-column *ngFor="let column of allColumns$ | async | sort: 'order'" cdkDrag [column]="column" [boardId]="boardId" [attr.data-id]='column._id'></app-board-column>
 
   </div>
 </div>
-
-<!--    <div *ngFor="let column of allColumns$ | async" class="column" cdkDrag>-->
-<!--    </div>-->
 
 
 

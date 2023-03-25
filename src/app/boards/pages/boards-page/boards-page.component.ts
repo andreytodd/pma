@@ -11,6 +11,9 @@ import {MatDialog} from "@angular/material/dialog";
   selector: 'app-boards-page',
   templateUrl: './boards-page.component.html',
   styleUrls: ['./boards-page.component.scss'],
+  host: {
+    class:'boards-page'
+  }
 })
 export class BoardsPageComponent implements OnInit {
   allBoards$!: Observable<any>;

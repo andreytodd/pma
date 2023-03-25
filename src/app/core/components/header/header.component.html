@@ -1,6 +1,5 @@
-<mat-toolbar class="custom-toolbar">
-  <header>
-    <h1 routerLink="/">Project management app</h1>
+<mat-toolbar class="custom-toolbar" id="header">
+    <h1 routerLink="/">PMA</h1>
     <div class="header-controls-wrapper">
       <div *ngIf="!(token | async)">
         <ul>
@@ -15,9 +14,6 @@
       <div *ngIf="token | async">
         <ul>
           <li>
-            <a routerLink="/boards">Go to main</a>
-          </li>
-          <li>
             <a routerLink="user/settings">Settings</a>
           </li>
           <li>
@@ -26,6 +22,4 @@
         </ul>
       </div>
     </div>
-
-  </header>
 </mat-toolbar>

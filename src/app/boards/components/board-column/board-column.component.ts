@@ -18,7 +18,21 @@ export class BoardColumnComponent implements OnInit{
   @Input() boardId!: string;
   allTasksInColumn$: BehaviorSubject<TaskModel[]> = new BehaviorSubject<TaskModel[]>([])
   allTasksInColumn!: TaskModel[]
-  private allColumns: GetColumnsModel[] = [];
+
+  isEditingTitle = false;
+
+  editTitle() {
+    this.isEditingTitle = true;
+  }
+
+  saveTitle() {
+    this.apiService.updateColumn(this.boardId, this.column._id, {
+      title: this.column.title,
+      order: this.column.order
+    }).subscribe(() => {
+      this.isEditingTitle = false
+    })
+  }
 
   constructor(private apiService: ApiService, private dialog: MatDialog, private el: ElementRef) {}
 
@@ -62,6 +76,10 @@ export class BoardColumnComponent implements OnInit{
       const newTasksList = [...tasks].filter((task) => task._id !== taskId)
       this.allTasksInColumn$.next(newTasksList);
     })
+  }
+
+  onEditTask() {
+
   }
 
   showTasks() {

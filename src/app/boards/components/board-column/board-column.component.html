@@ -1,21 +1,33 @@
+<!--  <div>-->
+<!--    <p>Title: {{column.title}}</p>-->
+<!--    <p>Column order: {{column.order}}</p>-->
+<!--  </div>-->
 <div class="columns-all__column">
-  <div>
-    <p>Title: {{column.title}}</p>
-    <p>Column order: {{column.order}}</p>
-  </div>
-  <div>
+
+  <div class="board-column__column">
+    <ng-container *ngIf="!isEditingTitle; else titleEdit">
+      <a (click)="editTitle()">{{column.title}}</a>
+    </ng-container>
+    <ng-template #titleEdit>
+      <input [(ngModel)]="column.title" (blur)="saveTitle()" (keydown.enter)="saveTitle()">
+    </ng-template>
+
     <div class="tasks-list" cdkDropList [cdkDropListData]="allTasksInColumn" (cdkDropListDropped)="drop($event)">
       <div  *ngFor="let task of (allTasksInColumn$ | async) | sort:'order' " [cdkDragData]="task" class="columns-all__column__task" cdkDrag id="{{task._id}}">
-        <app-task [task] = task (deleteTaskEmitter)="onDeleteTask($event)"></app-task>
+        <app-task id="column-task"
+          [task] = task
+          [columnId] = column._id
+          [boardId]="boardId"
+          (taskEmitter)="onDeleteTask($event)">
+        </app-task>
       </div>
+    </div>
+    <div>
+      <button (click)="showConfirmationDialog()">Delete column</button>
+      <button (click)="createTaskDialog()">Create task</button>
     </div>
 
   </div>
 
-  <div>
-    <button (click)="showConfirmationDialog()">Delete column</button>
-    <button (click)="createTaskDialog()">Create task</button>
-    <button (click)="showTasks()">Show task</button>
-  </div>
 </div>
 

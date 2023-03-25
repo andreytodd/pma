@@ -22,6 +22,11 @@ export interface GetColumnsModel extends CreateColumnModel {
   boardId: string
 }
 
+export interface UpdateColumnData {
+  title: string
+  order: number
+}
+
 export interface TaskFormModel {
   title: string
   order: number
@@ -37,6 +42,15 @@ export interface TaskModel {
   boarId: string
   columnId: string
   description: string
+  userId: string
+  users: string[]
+}
+
+export interface EditTaskModel {
+  title: string
+  order: number
+  description: string
+  columnId: string
   userId: string
   users: string[]
 }

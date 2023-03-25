@@ -1,0 +1,9 @@
+<form [formGroup]="editTaskForm" (submit)="editTask()">
+  <label>Title</label>
+  <input formControlName="title">
+
+  <label>Description</label>
+  <input formControlName="description">
+
+  <button type="submit">Submit</button>
+</form>

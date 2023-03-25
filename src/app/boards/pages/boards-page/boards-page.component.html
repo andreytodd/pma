@@ -1,8 +1,12 @@
-
-<div class="all-boards">
-  <button (click)="showModal()">Create Board</button>
-  <div *ngFor="let board of (allBoards$ | async)">
-    <app-board [board]="board"></app-board>
-  </div>
+<div>
+  <h2>My boards</h2>
 </div>
+<div class="boards-page__all-boards">
+  <div (click)="showModal()" class="boards-page__create-board">
+    <mat-icon class="create-board__icon">add_circle</mat-icon>
+  </div>
+  <app-board *ngFor="let board of (allBoards$ | async)" [board]="board" ></app-board>
+</div>
+
+
 

@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
 import {EditUser} from "../../../auth/models/auth.models";
 import {MatDialog} from "@angular/material/dialog";
+import {AuthService} from "../../../auth/services/auth.service";
 
 @Component({
   selector: 'app-edit-user',
@@ -12,6 +13,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class EditUserComponent {
 
   userId!: string;
+  userLogin!: string;
 
 
   editUserForm = new FormGroup({
@@ -20,11 +22,19 @@ export class EditUserComponent {
     password: new FormControl()
   })
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {
+  constructor(
+    private apiService: ApiService,
+    private dialog: MatDialog,
+    private authService: AuthService
+    ) {
   }
 
   onSubmit() {
-    this.apiService.editUser(this.userId, this.editUserForm.value as EditUser);
+    this.authService.signIn(this.userLogin, this.editUserForm.value.password).subscribe(() => {
+        this.apiService.editUser(this.userId, this.editUserForm.value as EditUser)
+    },
+    err => alert(err)
+      );
     this.dialog.closeAll();
   }
 

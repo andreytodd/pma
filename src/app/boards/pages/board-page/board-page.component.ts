@@ -1,12 +1,11 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import { GetColumnsModel } from "../../models/boards.model";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateColumnComponent} from "../../../core/dialogs/create-column/create-column.component";
-import {ColumnIdService} from "../../services/column-id.service";
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-board-page',
@@ -18,15 +17,12 @@ export class BoardPageComponent implements OnInit {
   boardId: string = this.activatedRoute.snapshot.params['id'];
   boardName!: string;
 
-  // allColumns$!: Observable<GetColumnsModel[]>
   allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
   allColumns!: GetColumnsModel[];
   constructor(
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private columnIdService: ColumnIdService,
-    private element: ElementRef
     ) {
   }
 
@@ -47,7 +43,7 @@ export class BoardPageComponent implements OnInit {
   createColumn() {
     const dialogRef = this.dialog.open(CreateColumnComponent);
     dialogRef.componentInstance.boardId = this.boardId;
-    dialogRef.componentInstance.order = this.allColumns.length
+    dialogRef.componentInstance.order = this.allColumns$.getValue().length
   }
 
   drop(event: CdkDragDrop<any>) {

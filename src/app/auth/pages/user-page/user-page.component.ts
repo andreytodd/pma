@@ -24,14 +24,14 @@ export class UserPageComponent implements OnInit{
   ) {
   }
 
-  // TODO: TypeError - cannot read properties of undefined on init
   ngOnInit() {
     this.currentUser$ = this.apiService.getUserById(this.tokenService.getCurrentUserId())
   }
 
   editUser() {
     const dialogRef = this.dialog.open(EditUserComponent);
-    dialogRef.componentInstance.userId = this.currentUser$.getValue()._id
+    dialogRef.componentInstance.userId = this.currentUser$.getValue()._id;
+    dialogRef.componentInstance.userLogin = this.currentUser$.getValue().login;
   }
 
   deleteUser() {

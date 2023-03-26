@@ -4,6 +4,7 @@ import {ApiService} from "../../services/api.service";
 import {EditUser} from "../../../auth/models/auth.models";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "../../../auth/services/auth.service";
+import {ErrorMessageComponent} from "../error-message/error-message.component";
 
 @Component({
   selector: 'app-edit-user',
@@ -30,11 +31,10 @@ export class EditUserComponent {
   }
 
   onSubmit() {
-    this.authService.signIn(this.userLogin, this.editUserForm.value.password).subscribe(() => {
+    this.authService.signIn(this.userLogin, this.editUserForm.value.password)
+      .subscribe(() => {
         this.apiService.editUser(this.userId, this.editUserForm.value as EditUser)
-    },
-    err => alert(err)
-      );
+      });
     this.dialog.closeAll();
   }
 

@@ -16,6 +16,10 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import { CreateTaskComponent } from './dialogs/create-task/create-task.component';
 import { ErrorMessageComponent } from './dialogs/error-message/error-message.component';
 import { EditTaskComponent } from './dialogs/edit-task/edit-task.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -38,7 +42,11 @@ import { EditTaskComponent } from './dialogs/edit-task/edit-task.component';
     RouterLink,
     MatDialogModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [
     HeaderComponent,

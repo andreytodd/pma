@@ -25,7 +25,7 @@ export class EditBoardComponent implements OnInit {
 
   ngOnInit() {
     this.currentUserId =  this.tokenService.getCurrentUserId()
-    this.apiService.getUsers().subscribe(data => {
+    this.apiService.getUsers().subscribe((data) => {
       this.allUsers = data
         .filter((user: User) => user._id !== this.currentUserId)
     })

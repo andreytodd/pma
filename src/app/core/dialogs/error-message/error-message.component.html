@@ -1,4 +1,8 @@
-<div class="error-message">
-  <p>{{ errorMessage }}</p>
-  <button (click)="close()">OK</button>
+<div class="error-dialog">
+  <div class="error-message">
+    <mat-icon class="error-icon">error</mat-icon>
+    <h3>{{ errorMessage }}</h3>
+  </div>
+  <button mat-raised-button (click)="close()">OK</button>
 </div>
+

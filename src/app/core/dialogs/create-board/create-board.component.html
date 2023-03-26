@@ -1,19 +1,34 @@
-<form [formGroup]="createBoardForm" (submit)="createNewBoard()">
-  <label>Title</label>
-  <input formControlName="title">
-
-  <div formArrayName="sharedUsers" *ngFor="let user of sharedUsers.controls; let i = index">
-    <div [formGroupName]="i">
-
-      <label>
-        <select formControlName="login">
-          <option *ngFor="let user of allUsers" [value]="user.login">{{user.login}}</option>
-        </select>
-      </label>
-
-    </div>
-
+<div class="dialog">
+  <div class="dialog-heading">
+    <h4>Create new board</h4>
   </div>
-  <a (click)="addUser()">Add</a>
-  <button type="submit">Submit</button>
-</form>
+  <div class="dialog-form">
+    <form [formGroup]="createBoardForm" (submit)="createNewBoard()">
+      <h3>Add board title</h3>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+
+      <h3>Select shared users</h3>
+      <div formArrayName="sharedUsers" *ngFor="let user of sharedUsers.controls; let i = index">
+        <div [formGroupName]="i">
+
+          <mat-form-field>
+            <mat-label>Share with..
+              <mat-select formControlName="login">
+                <mat-option *ngFor="let user of allUsers" [value]="user.login">{{user.login}}</mat-option>
+              </mat-select>
+            </mat-label>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div class="dialog-buttons">
+    <button mat-raised-button (click)="addUser()">Add user</button>
+    <button mat-raised-button type="submit">Submit</button>
+  </div>
+</div>
+

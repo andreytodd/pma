@@ -6,10 +6,18 @@
 
   <div class="board-column__column">
     <ng-container *ngIf="!isEditingTitle; else titleEdit">
-      <a (click)="editTitle()">{{column.title}}</a>
+      <h4><a (click)="editTitle()">{{titleCopy}}</a></h4>
     </ng-container>
     <ng-template #titleEdit>
-      <input [(ngModel)]="column.title" (blur)="saveTitle()" (keydown.enter)="saveTitle()">
+      <div class="board-column__title-edit">
+        <div class="title-edit__input">
+          <input [(ngModel)]="titleCopy" (keydown.enter)="saveTitle()">
+        </div>
+        <div class="title-edit__buttons">
+          <button mat-raised-button (click)="saveTitle()">OK</button>
+          <button mat-raised-button (click)="cancelEditTitle()">Cancel</button>
+        </div>
+      </div>
     </ng-template>
 
     <div class="tasks-list" cdkDropList [cdkDropListData]="allTasksInColumn" (cdkDropListDropped)="drop($event)">
@@ -23,8 +31,8 @@
       </div>
     </div>
     <div>
-      <button (click)="showConfirmationDialog()">Delete column</button>
-      <button (click)="createTaskDialog()">Create task</button>
+      <button class="delete-column-btn" mat-raised-button (click)="createTaskDialog()">Create task <mat-icon>add</mat-icon></button>
+      <button class="add-task-btn" mat-raised-button (click)="showConfirmationDialog()">Delete column <mat-icon>delete</mat-icon></button>
     </div>
 
   </div>

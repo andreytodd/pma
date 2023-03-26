@@ -18,29 +18,41 @@ export class BoardColumnComponent implements OnInit{
   @Input() boardId!: string;
   allTasksInColumn$: BehaviorSubject<TaskModel[]> = new BehaviorSubject<TaskModel[]>([])
   allTasksInColumn!: TaskModel[]
-
   isEditingTitle = false;
+  titleCopy!: string;
+
+  constructor(private apiService: ApiService, private dialog: MatDialog, private el: ElementRef) {}
 
   editTitle() {
+    this.titleCopy = this.column.title;
     this.isEditingTitle = true;
   }
 
-  saveTitle() {
-    this.apiService.updateColumn(this.boardId, this.column._id, {
-      title: this.column.title,
-      order: this.column.order
-    }).subscribe(() => {
-      this.isEditingTitle = false
-    })
+  cancelEditTitle() {
+    this.isEditingTitle = false;
+    this.titleCopy = this.column.title;
   }
 
-  constructor(private apiService: ApiService, private dialog: MatDialog, private el: ElementRef) {}
+  saveTitle() {
+    if (this.titleCopy !== this.column.title) {
+      this.apiService.updateColumn(this.boardId, this.column._id, {
+        title: this.titleCopy,
+        order: this.column.order
+      }).subscribe(() => {
+        this.column.title = this.titleCopy;
+        this.isEditingTitle = false;
+      })
+    } else {
+      this.isEditingTitle = false;
+    }
+  }
 
   ngOnInit() {
     this.apiService.getTasksInColumn(this.boardId, this.column._id).subscribe((tasks) => {
       this.allTasksInColumn$.next(tasks);
       this.allTasksInColumn = tasks;
     })
+    this.titleCopy = this.column.title;
   }
 
   deleteColumn() {
@@ -75,16 +87,6 @@ export class BoardColumnComponent implements OnInit{
     this.apiService.getTasksInColumn(this.boardId, this.column._id).subscribe((tasks) => {
       const newTasksList = [...tasks].filter((task) => task._id !== taskId)
       this.allTasksInColumn$.next(newTasksList);
-    })
-  }
-
-  onEditTask() {
-
-  }
-
-  showTasks() {
-    this.apiService.getTasksInColumn(this.boardId, this.column._id).subscribe(data => {
-      console.log(data)
     })
   }
 
@@ -135,7 +137,6 @@ export class BoardColumnComponent implements OnInit{
           this.allTasksInColumn$.next(tasks);
         });
     }
-
 
   }
 

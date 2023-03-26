@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-error-message',
@@ -7,16 +8,14 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class ErrorMessageComponent {
   @Input() message!: string;
-  @Output() closePopup = new EventEmitter<void>();
+
+  constructor(private dialog: MatDialog) {
+  }
 
   errorMessage!: string;
 
-  showError(message: string) {
-    this.errorMessage = message;
-  }
-
   close() {
-    this.closePopup.emit();
+    this.dialog.closeAll()
   }
 
 }

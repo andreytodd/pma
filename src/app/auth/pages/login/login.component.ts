@@ -4,6 +4,9 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {TokenService} from "../../services/token.service";
 import {Router} from "@angular/router";
 import {ApiService} from "../../../core/services/api.service";
+import {User} from "../../models/auth.models";
+import {MatDialog} from "@angular/material/dialog";
+import {ErrorMessageComponent} from "../../../core/dialogs/error-message/error-message.component";
 
 @Component({
   selector: 'app-login',
@@ -35,27 +38,97 @@ export class LoginComponent implements OnInit{
     private formBuilder: FormBuilder,
     private tokenService: TokenService,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private dialog: MatDialog
   ) {}
+
+  // signIn(): void {
+  //   const {login, password} = this.loginForm.value;
+    // this.authService.signIn(login, password).subscribe(
+    //     (data) => {
+    //       this.tokenService.saveToken(data.token);
+    //       this.apiService.getUsers().subscribe(
+    //         (data) => {
+    //           let currentUser: string = (data.find((user: User) => user.login === login))._id;
+    //           this.tokenService.saveUser(currentUser);
+    //           this.router.navigate(['/boards']);
+    //         },
+    //         (error) => {
+    //           const dialogRef = this.dialog.open(ErrorMessageComponent)
+    //           dialogRef.componentInstance.errorMessage = error.message
+    //         }
+    //       )
+    //
+    //     },
+    //     (error) => {
+    //       const dialogRef = this.dialog.open(ErrorMessageComponent)
+    //       dialogRef.componentInstance.errorMessage = error.message
+    //     }
+    //   )
+  //   this.authService.signIn(login, password).subscribe(
+  //     (data) => {
+  //       this.tokenService.saveToken(data.token);
+  //       this.apiService.getUsers().subscribe(
+  //         (data) => {
+  //           if (data && Array.isArray(data)) {
+  //             let currentUser: string = (data.find((user: User) => user.login === login))._id;
+  //             this.tokenService.saveUser(currentUser);
+  //             this.router.navigate(['/boards']);
+  //           } else {
+  //             const dialogRef = this.dialog.open(ErrorMessageComponent);
+  //             dialogRef.componentInstance.errorMessage = "Unexpected response format from server";
+  //           }
+  //         },
+  //         (error) => {
+  //           const dialogRef = this.dialog.open(ErrorMessageComponent)
+  //           dialogRef.componentInstance.errorMessage = error || 'An error occurred'
+  //         }
+  //       )
+  //     },
+  //       (error) => {
+  //         const dialogRef = this.dialog.open(ErrorMessageComponent)
+  //         dialogRef.componentInstance.errorMessage = error.message || 'An error occurred'
+  //     }
+  //   )
+  // }
 
   signIn(): void {
     const {login, password} = this.loginForm.value;
     this.authService.signIn(login, password).subscribe(
-        (data) => {
-          this.tokenService.saveToken(data.token);
-          this.apiService.getUsers().subscribe(
-            data => {
-              let currentUser = (data.find((user: any) => user.login === login))._id;
+      (data) => {
+        this.tokenService.saveToken(data.token);
+        this.apiService.getUsers().subscribe(
+          (data) => {
+            if (data && Array.isArray(data)) {
+              let currentUser: string = (data.find((user: User) => user.login === login))._id;
               this.tokenService.saveUser(currentUser);
               this.router.navigate(['/boards']);
+            } else {
+              const dialogRef = this.dialog.open(ErrorMessageComponent);
+              dialogRef.componentInstance.errorMessage = "Unexpected response format from server";
             }
-          )
-
-        },
-        (error) => {
-          alert(error.error.message);
+          },
+          (error) => {
+            if (error && error.message) {
+              const dialogRef = this.dialog.open(ErrorMessageComponent);
+              dialogRef.componentInstance.errorMessage = error?.message;
+            } else {
+              const dialogRef = this.dialog.open(ErrorMessageComponent);
+              dialogRef.componentInstance.errorMessage = 'An unknown error occurred';
+            }
+          }
+        );
+      },
+      (error) => {
+        if (error && error.message === 'User not found') {
+          const dialogRef = this.dialog.open(ErrorMessageComponent);
+          dialogRef.componentInstance.errorMessage = 'User not found';
+        } else {
+          const dialogRef = this.dialog.open(ErrorMessageComponent);
+          dialogRef.componentInstance.errorMessage = 'An unknown error occurred';
         }
-      )
+      }
+    );
   }
 
 }

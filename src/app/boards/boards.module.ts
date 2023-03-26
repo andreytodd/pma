@@ -10,6 +10,7 @@ import {CdkDrag, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
 import { SortPipe } from './pipes/sort.pipe';
 import {FormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -23,16 +24,17 @@ import {MatIconModule} from "@angular/material/icon";
     TaskComponent,
     SortPipe,
   ],
-  imports: [
-    CommonModule,
-    BoardRoutingModule,
-    AsyncPipe,
-    CdkDrag,
-    CdkDropList,
-    CdkDropListGroup,
-    FormsModule,
-    MatIconModule
-  ],
+    imports: [
+        CommonModule,
+        BoardRoutingModule,
+        AsyncPipe,
+        CdkDrag,
+        CdkDropList,
+        CdkDropListGroup,
+        FormsModule,
+        MatIconModule,
+        MatButtonModule
+    ],
   exports: [
     BoardsPageComponent,
   ]

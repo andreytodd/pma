@@ -6,6 +6,7 @@ import {LoggedInGuard} from "./auth/guards/logged-in.guard";
 import {WelcomeComponent} from "./core/pages/welcome-page/welcome.component";
 import {UserPageComponent} from "./auth/pages/user-page/user-page.component";
 import {AuthGuard} from "./auth/guards/auth.guard";
+import {NotFoundPageComponent} from "./core/pages/not-found-page/not-found-page.component";
 
 const routes: Routes = [
   {path: '', component: WelcomeComponent, canActivate: [LoggedInGuard]},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'auth/signup', component: SignupComponent, canActivate: [LoggedInGuard]},
   {path: 'user/settings', component: UserPageComponent, canActivate: [AuthGuard] },
   {path: 'boards', loadChildren: () => import('./boards/boards.module').then(m => m.BoardsModule)},
+  // {path: '**', component: NotFoundPageComponent}
 ];
 
 @NgModule({

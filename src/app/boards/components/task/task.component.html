@@ -3,7 +3,7 @@
     <p>Title: {{task.title}}</p>
   </div>
   <div class="task-description">
-    <p>About: {{task.description}}</p>
+    <p>{{task.description}}</p>
   </div>
   <div class="task-delete">
     <mat-icon (click)="showConfirmationDialog(); $event.stopPropagation()">delete</mat-icon>

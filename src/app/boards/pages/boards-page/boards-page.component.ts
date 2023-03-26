@@ -28,18 +28,6 @@ export class BoardsPageComponent implements OnInit {
     this.allBoards$ = this.apiService.getBoardsByUserId(this.tokenService.getCurrentUserId());
   }
 
-  getUsers() {
-    this.apiService.getUsers().subscribe(
-      (data: User[]) => console.log(data),
-      (error: Error) => console.log(error)
-      )
-  }
-
-  getAllBoards() {
-    this.apiService.getBoards()
-      .subscribe(data => console.log(data))
-  }
-
   showModal() {
     this.dialog.open(CreateBoardComponent);
   }

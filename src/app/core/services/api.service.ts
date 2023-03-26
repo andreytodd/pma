@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {EditUser, User} from "../../auth/models/auth.models";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, catchError, Observable, throwError} from "rxjs";
 import {
   BoardData,
   BoardFormData,
@@ -9,6 +9,7 @@ import {
   GetColumnsModel, PatchColumns, PatchTasks,
   TaskFormModel, TaskModel, UpdateColumnData
 } from "../../boards/models/boards.model";
+import {map} from "rxjs/operators";
 
 
 const USERS_API = 'http://localhost:3000/users';
@@ -32,7 +33,16 @@ export class ApiService {
 
 
   getUsers(): Observable<any> {
-    return this.http.get(USERS_API)
+    return this.http.get(USERS_API).pipe(
+      map((response: any) => response),
+      catchError((error: HttpErrorResponse) => {
+        if (error?.status === 404) {
+          return throwError('User not found');
+        } else {
+          return throwError('An error occurred');
+        }
+      })
+    );
   }
 
   getUserById(id: string): BehaviorSubject<User> {
@@ -50,25 +60,25 @@ export class ApiService {
     )
   }
 
-  deleteUser(userId: string) {
-    return this.http.delete(`${USERS_API}/${userId}`)
+  deleteUser(userId: string): Observable<User> {
+    return this.http.delete<User>(`${USERS_API}/${userId}`)
   }
 
 
-  getBoards(): Observable<any> {
+  getBoards(): Observable<BoardData[]> {
     return this.allBoards$;
   }
 
   createBoard(data: BoardFormData): void {
-    this.http.post<any>(BOARDS_API, data).subscribe((data) => {
+    this.http.post<BoardData>(BOARDS_API, data).subscribe((data) => {
       const newBoardList = [...this.allBoards$.getValue(), data];
       this.allBoards$.next(newBoardList)
     })
   }
 
-  deleteBoard(id: string) {
-    this.http.delete(`${BOARDS_API}/${id}`).subscribe((data) => {
-      const newBoardList = this.allBoards$.getValue().filter((board) => board._id !== id)
+  deleteBoard(id: string): void {
+    this.http.delete<BoardData>(`${BOARDS_API}/${id}`).subscribe((data) => {
+      const newBoardList: BoardData[] = this.allBoards$.getValue().filter((board) => board._id !== id)
       this.allBoards$.next(newBoardList);
     });
   }
@@ -80,8 +90,8 @@ export class ApiService {
     });
   }
 
-  getBoardsByUserId(id: string): Observable<any> {
-    this.http.get<any[]>(`${BOARDSET_API}/${id}`).subscribe((data) => {
+  getBoardsByUserId(id: string): Observable<BoardData[]> {
+    this.http.get<BoardData[]>(`${BOARDSET_API}/${id}`).subscribe((data) => {
       this.allBoards$.next(data)
     })
     return this.allBoards$;
@@ -98,7 +108,7 @@ export class ApiService {
     return this.allColumns$;
   }
 
-  createColumn(id: string, data: CreateColumnModel) {
+  createColumn(id: string, data: CreateColumnModel): void {
     this.http.post<GetColumnsModel>(`${BOARDS_API}/${id}/columns`, data).subscribe((data) => {
       const newColumnsList =  [...this.allColumns$.getValue(), data];
       this.allColumns$.next(newColumnsList);
@@ -109,14 +119,10 @@ export class ApiService {
     return  this.http.put<UpdateColumnData>(`${BOARDS_API}/${boardId}/columns/${columnId}`, data)
   }
 
-  getColumnByUserId(id: string) {
-    const params = new HttpParams().set('userId', id)
-    return this.http.get(`${COLUMNSSET_API}`, {params})
-  }
 
-  deleteColumnById(boardId: string, columnId: string) {
-    this.http.delete(`${BOARDS_API}/${boardId}/columns/${columnId}`).subscribe((data) => {
-      const newColumnsList = this.allColumns$.getValue().filter((column) => column._id !== columnId)
+  deleteColumnById(boardId: string, columnId: string): void {
+    this.http.delete<GetColumnsModel>(`${BOARDS_API}/${boardId}/columns/${columnId}`).subscribe((data) => {
+      const newColumnsList: GetColumnsModel[] = this.allColumns$.getValue().filter((column) => column._id !== columnId)
       this.allColumns$.next(newColumnsList);
     })
   }
@@ -125,20 +131,20 @@ export class ApiService {
     return this.http.get<TaskModel[]>(`${TASKSSET_API}/${boardId}`)
   }
 
-  getTasksInColumn(boardId: string, columnId: string) {
+  getTasksInColumn(boardId: string, columnId: string): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`)
   }
 
-  createTask(boardId: string, columnId: string, data: TaskFormModel) {
+  createTask(boardId: string, columnId: string, data: TaskFormModel): Observable<TaskFormModel> {
     return this.http.post<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`, data)
   }
 
-  deleteTask(boardId: string, columnId: string, taskId: string) {
-    return this.http.delete(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`)
+  deleteTask(boardId: string, columnId: string, taskId: string): Observable<TaskFormModel> {
+    return this.http.delete<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`)
   }
 
-  editTask(boardId: string, columnId: string, taskId: string, data: EditTaskModel) {
-    return this.http.put(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`, data)
+  editTask(boardId: string, columnId: string, taskId: string, data: EditTaskModel): Observable<TaskFormModel> {
+    return this.http.put<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`, data)
   }
 
   updateTaskOrder(tasks: PatchTasks[]): Observable<TaskModel[]> {
@@ -154,7 +160,7 @@ export class ApiService {
   }
 
   updateColumnsOrder(columns: PatchColumns[]) {
-    const updatedColumns = columns.map((column, index) => {
+    const updatedColumns: PatchColumns[] = columns.map((column, index) => {
       const { _id, order } = column;
       return {
         _id,
@@ -164,7 +170,7 @@ export class ApiService {
     return this.http.patch<GetColumnsModel[]>(COLUMNSSET_API, updatedColumns);
   }
 
-  updateColumns(columns: PatchColumns[]) {
+  updateColumns(columns: PatchColumns[]): Observable<GetColumnsModel[]> {
     return this.updateColumnsOrder(columns)
   }
 

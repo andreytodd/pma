@@ -1,18 +1,27 @@
-<form [formGroup]="createTaskForm" (submit)="createNewTask()">
-  <label>Title</label>
-  <input formControlName="title">
+<div class="dialog">
+  <div class="dialog-heading">
+    <h4>Create new task</h4>
+  </div>
+  <div class="dialog-form">
+    <form [formGroup]="createTaskForm" (submit)="createNewTask()">
 
-  <label>Description</label>
-  <input formControlName="description">
+      <h3>Enter task title</h3>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
 
-<!--  <div formArrayName="sharedUsers" *ngFor="let user of sharedUsers.controls; let i = index">-->
-<!--    <div [formGroupName]="i">-->
+      <h3>Enter task description</h3>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
 
-<!--      <label>Add user to the board</label>-->
-<!--      <input formControlName="login" placeholder="Type user's login">-->
+    </form>
+  </div>
+  <div class="dialog-buttons">
+    <button mat-raised-button type="submit" (click)="createNewTask()">Submit</button>
+  </div>
+</div>
 
-<!--    </div>-->
-<!--  </div>-->
-  <a (click)="addUser()">Add</a>
-  <button type="submit">Submit</button>
-</form>
+

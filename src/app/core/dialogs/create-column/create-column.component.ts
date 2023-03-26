@@ -22,6 +22,9 @@ export class CreateColumnComponent {
   })
 
   createColumn() {
+    if (!this.createColumnForm.value.title) {
+      this.createColumnForm.value.title = 'Untitled column';
+    }
     this.apiService.createColumn(this.boardId, {
       title: this.createColumnForm.value.title,
       order: this.order

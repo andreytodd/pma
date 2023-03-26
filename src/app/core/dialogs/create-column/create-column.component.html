@@ -1,5 +1,19 @@
-<form [formGroup]="createColumnForm" (submit)="createColumn()">
-  <label>Title</label>
-  <input formControlName="title">
-  <button type="submit">Submit</button>
-</form>
+<div class="dialog">
+  <div class="dialog-heading">
+    <h4>Create new column</h4>
+  </div>
+  <div class="dialog-form">
+    <h3>Enter column title</h3>
+    <form [formGroup]="createColumnForm" (submit)="createColumn()">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+
+    </form>
+  </div>
+  <div class="dialog-buttons">
+    <button mat-raised-button type="submit">Submit</button>
+  </div>
+</div>
+

@@ -3,6 +3,8 @@ import {AuthService} from "../../services/auth.service";
 import { FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {confirmPasswordValidator} from "../../directives/confirm-password.directive";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {ErrorMessageComponent} from "../../../core/dialogs/error-message/error-message.component";
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +19,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
     ) {
   }
 
@@ -52,17 +55,23 @@ export class SignupComponent implements OnInit {
         },
         (error) => {
           this.newUserForm.reset()
-          alert(error.error.message);
+          this.createDialog(error.message)
+          console.log(error)
         }
       )
       this.newUserForm.reset()
     } else {
-      alert('Invalid form')
+      this.createDialog('Invalid form')
       this.newUserForm.reset()
     }
-    this.router.navigate(['/auth/login'])
+    this.router.navigate(['/auth/signup'])
   }
   get form() {
     return this.newUserForm.controls;
+  }
+
+  createDialog(message: string) {
+    const dialogRef = this.dialog.open(ErrorMessageComponent)
+    dialogRef.componentInstance.errorMessage = message
   }
 }

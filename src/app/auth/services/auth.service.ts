@@ -3,6 +3,7 @@ import {HttpHeaders, HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TokenService} from "./token.service";
 import {Router} from "@angular/router";
+import {User} from "../models/auth.models";
 
 const AUTH_API = 'http://localhost:3000/auth/'
 const httpOptions = {
@@ -36,7 +37,7 @@ export class AuthService {
     }, httpOptions);
   }
 
-  signOut() {
+  signOut(): void {
     this.tokenService.signOut();
     this.router.navigate([''])
   }

@@ -1,0 +1,40 @@
+.dialog {
+  width: 30vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dialog-heading {
+  width: 100%;
+  min-height: 15%;
+  display: flex;
+  justify-content: center;
+  background-color: #8BC6EC;
+  align-items: center;
+}
+
+.dialog-heading h4 {
+  margin: 0;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #9599E2;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #8BC6EC;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 10px 10px 0;
+}
+
+.dialog button {
+  margin: 5px;
+}

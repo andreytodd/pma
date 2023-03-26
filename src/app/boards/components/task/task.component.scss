@@ -1,6 +1,7 @@
 .task {
   border: 1px solid grey;
-  width: 188px;
+  max-width: 188px;
+  min-width: 185px;
   margin: 5px;
   display: flex;
   flex-direction: column;
@@ -17,6 +18,10 @@
   transform: scale(1.03);
 }
 
+.task-title p {
+  font-weight: bold;
+}
+
 .task-description p {
   font-size: 14px;
   font-style: italic;
@@ -26,6 +31,6 @@
 .task-delete {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 0 15px 10px 0;
 }

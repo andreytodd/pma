@@ -52,6 +52,13 @@ export class CreateTaskComponent implements OnInit {
   }
 
   createNewTask() {
+    if (!this.createTaskForm.value.title) {
+      alert('Enter title!')
+      return
+    }
+    if (!this.createTaskForm.value.description) {
+      this.createTaskForm.value.description = 'No description'
+    }
     this.apiService.createTask(this.boardId, this.columnId, {
       title: this.createTaskForm.value.title,
       description: this.createTaskForm.value.description,

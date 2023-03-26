@@ -1,8 +1,17 @@
-<div>
-  <p>Name: {{currentUser$.getValue().name}}</p>
-  <p>Login: {{currentUser$.getValue().login}}</p>
+<div class="user-page-wrapper">
+  <div class="user-page__info">
+    <div class="user-info__profile">
+      <p>Name: {{currentUser$.getValue().name}}</p>
+      <p>Login: {{currentUser$.getValue().login}}</p>
+    </div>
+    <div class="user-info__image">
+      <img src="assets/images/user-profile.jpg">
+    </div>
+  </div>
+
+  <button (click)="editUser()">Edit profile</button>
+  <button (click)="showConfirmationDialog()">Delete user</button>
 </div>
-<button (click)="editUser()">Edit profile</button>
-<button (click)="showConfirmationDialog()">Delete user</button>
+
 
 

@@ -1,18 +1,34 @@
-<form [formGroup]="editUserForm" (submit)="onSubmit()">
-  <div>
-    <label>New name</label>
-    <input type="text" formControlName="name" required>
+<div class="dialog">
+  <div class="dialog-heading">
+    <h4>Edit your profile</h4>
+  </div>
+  <div >
+    <form class="dialog-form"  [formGroup]="editUserForm" (submit)="onSubmit()">
+      <h3>Enter new name</h3>
+      <mat-form-field>
+        <mat-label>New name</mat-label>
+        <input matInput type="text" formControlName="name" required>
+      </mat-form-field>
+
+      <h3>Enter new login</h3>
+      <mat-form-field>
+        <mat-label>New login</mat-label>
+        <input matInput type="text" formControlName="login" required>
+      </mat-form-field>
+
+      <h3>Enter your current password</h3>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+      </mat-form-field>
+
+
+    </form>
+  </div>
+  <div class="dialog-buttons">
+    <button mat-raised-button type="submit">Submit</button>
   </div>
 
-  <div>
-    <label>New login</label>
-    <input type="text" formControlName="login" required>
-  </div>
+</div>
 
-  <div>
-    <label>Password</label>
-    <input type="password" formControlName="password" required>
-  </div>
 
-  <button>Submit</button>
-</form>

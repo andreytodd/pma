@@ -14,7 +14,7 @@
       <h3>Enter task description</h3>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
+        <textarea matInput formControlName="description" (keydown.enter)="createNewTask()"></textarea>
       </mat-form-field>
 
     </form>

@@ -10,6 +10,7 @@ import {
   TaskFormModel, TaskModel, UpdateColumnData
 } from "../../boards/models/boards.model";
 import {map} from "rxjs/operators";
+import {ErrorMessageComponent} from "../dialogs/error-message/error-message.component";
 
 
 const USERS_API = 'http://localhost:3000/users';
@@ -33,7 +34,8 @@ export class ApiService {
 
 
   getUsers(): Observable<any> {
-    return this.http.get(USERS_API).pipe(
+    return this.http.get(USERS_API)
+      .pipe(
       map((response: any) => response),
       catchError((error: HttpErrorResponse) => {
         if (error?.status === 404) {
@@ -64,10 +66,6 @@ export class ApiService {
     return this.http.delete<User>(`${USERS_API}/${userId}`)
   }
 
-
-  getBoards(): Observable<BoardData[]> {
-    return this.allBoards$;
-  }
 
   createBoard(data: BoardFormData): void {
     this.http.post<BoardData>(BOARDS_API, data).subscribe((data) => {
@@ -127,9 +125,6 @@ export class ApiService {
     })
   }
 
-  getTasksByBoardI(boardId: string): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${TASKSSET_API}/${boardId}`)
-  }
 
   getTasksInColumn(boardId: string, columnId: string): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`)

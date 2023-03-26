@@ -1,20 +1,20 @@
 <div class="dialog">
   <div class="dialog-heading">
-    <h4>Create new task</h4>
+    <h4>Edit task "{{task.title}}"</h4>
   </div>
   <div class="dialog-form">
     <form [formGroup]="editTaskForm" (submit)="editTask()">
 
-      <h3>Enter task title</h3>
+      <h3>Enter new title</h3>
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput formControlName="title">
       </mat-form-field>
 
-      <h3>Enter task description</h3>
+      <h3>Enter new description</h3>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
+        <textarea matInput formControlName="description" (keydown.enter)="editTask()"></textarea>
       </mat-form-field>
 
     </form>

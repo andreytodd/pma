@@ -9,11 +9,20 @@ import {
 import {catchError, Observable, throwError} from 'rxjs';
 import {TokenService} from "../../auth/services/token.service";
 import {Router} from "@angular/router";
+import {subscriptionLogsToBeFn} from "rxjs/internal/testing/TestScheduler";
+import {ErrorMessageComponent} from "../dialogs/error-message/error-message.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private tokenService: TokenService, private router: Router) {}
+  errors: string[] = [];
+
+  constructor(
+    private tokenService: TokenService,
+    private router: Router,
+    private dialog: MatDialog
+    ) {}
 
   private isTokenExpired(token: string) {
     const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
@@ -21,8 +30,6 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-
-
 
     const token = this.tokenService.getToken().getValue();
     if (token !== null && !this.isTokenExpired(token)) {
@@ -39,8 +46,12 @@ export class ApiInterceptor implements HttpInterceptor {
       return next.handle(authReq)
         .pipe(
           catchError((error) => {
-            alert(error.error.message)
-            return throwError(error.error.message);
+            const uniqueErrors = new Set([...this.errors, error.message]);
+            this.errors = [...uniqueErrors];
+            const dialogRef = this.dialog.open(ErrorMessageComponent);
+            dialogRef.componentInstance.errorMessage = error.message;
+            // alert(error.message);
+            return throwError(error.message);
           })
         )
     } else {

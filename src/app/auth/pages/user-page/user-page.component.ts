@@ -43,8 +43,6 @@ export class UserPageComponent implements OnInit{
         this.router.navigate([''])
       }
     )
-
-
   }
 
   showConfirmationDialog() {

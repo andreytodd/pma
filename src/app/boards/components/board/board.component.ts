@@ -63,8 +63,7 @@ export class BoardComponent implements OnInit{
 
   openBoardCard(): void {
     this.apiService.getAllColumnsInBoard(this.board._id);
-    this.router.navigate(['board', this.board._id]);
-
+    this.router.navigate(['boards', this.board._id]);
   }
 
 }

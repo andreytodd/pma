@@ -5,13 +5,15 @@
   border: 1px solid #9599E2;
   border-radius: 10px;
   padding: 20px;
+  margin: 15px;
 }
 
 .welcome-heading {
   display: flex;
   justify-content: center;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   color: #FFF;
+  text-align: center;
 }
 
 .welcome-features {
@@ -30,7 +32,7 @@
   justify-content: center;
   background-color: #FFF;
   text-align: center;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 .welcome-developer {
@@ -51,21 +53,41 @@
 .profile__description {
   color: #000;
   margin: 10px;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   font-style: italic;
 }
 
 .profile__image {
   margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .welcome-developer h3 {
   color: #FFF;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 .profile__image img {
-  width: 10vw;
+  width: 150px;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+@media screen and (max-width: 680px) {
+
+  .welcome-features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome-features__feature {
+    font-weight: normal;
+    width: 80%;
+  }
+
+  .welcome-developer {
+    display: none;
+  }
 }

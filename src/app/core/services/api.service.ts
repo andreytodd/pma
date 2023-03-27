@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {UserSignUp, User} from "../../auth/models/auth.models";
-import {BehaviorSubject, catchError, Observable, throwError} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {
   BoardData,
   BoardFormData,
@@ -9,8 +9,6 @@ import {
   GetColumnsModel, PatchColumns, PatchTasks,
   TaskFormModel, TaskModel, UpdateColumnData
 } from "../../boards/models/boards.model";
-import {map} from "rxjs/operators";
-import {ErrorMessageComponent} from "../dialogs/error-message/error-message.component";
 
 
 const USERS_API = 'http://localhost:3000/users';
@@ -25,84 +23,74 @@ const TASKSSET_API = 'http://localhost:3000/tasksSet';
 })
 export class ApiService {
   allBoards$: BehaviorSubject<BoardData[]> = new BehaviorSubject<BoardData[]>([]);
-  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
-  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{})
+  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([]);
+  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{});
 
   constructor(
     private http: HttpClient,
   ) { }
 
 
-  getUsers(): Observable<any> {
-    return this.http.get(USERS_API)
-      .pipe(
-      map((response: any) => response),
-      catchError((error: HttpErrorResponse) => {
-        if (error?.status === 404) {
-          return throwError('User not found');
-        } else {
-          return throwError('An error occurred');
-        }
-      })
-    );
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(USERS_API);
   }
 
   getUserById(id: string): BehaviorSubject<User> {
     this.http.get<User>(`${USERS_API}/${id}`)
       .subscribe((user) => {
       this.currentUser$.next(user);
-    })
-    return this.currentUser$
+    });
+    return this.currentUser$;
   }
 
   editUser(id: string, data: UserSignUp) {
     this.http.put<User>(`${USERS_API}/${id}`, data).subscribe((user) => {
         this.currentUser$.next(user);
       }
-    )
+    );
   }
 
   deleteUser(userId: string): Observable<User> {
-    return this.http.delete<User>(`${USERS_API}/${userId}`)
+    return this.http.delete<User>(`${USERS_API}/${userId}`);
   }
 
 
   createBoard(data: BoardFormData): void {
     this.http.post<BoardData>(BOARDS_API, data).subscribe((data) => {
       const newBoardList = [...this.allBoards$.getValue(), data];
-      this.allBoards$.next(newBoardList)
-    })
+      this.allBoards$.next(newBoardList);
+    });
   }
 
   deleteBoard(id: string): void {
-    this.http.delete<BoardData>(`${BOARDS_API}/${id}`).subscribe((data) => {
-      const newBoardList: BoardData[] = this.allBoards$.getValue().filter((board) => board._id !== id)
+    this.http.delete<BoardData>(`${BOARDS_API}/${id}`).subscribe(() => {
+      const newBoardList: BoardData[] = this.allBoards$.getValue().filter((board) => board._id !== id);
       this.allBoards$.next(newBoardList);
     });
   }
 
   updateBoard(id: string, data: BoardFormData): void {
     this.http.put<BoardData>(`${BOARDS_API}/${id}`, data).subscribe((data) => {
-      const newBoardList: BoardData[] = this.allBoards$.getValue().map(item => item._id === id ? data : item)
+      const newBoardList: BoardData[] = this.allBoards$.getValue().map(item => item._id === id ? data : item);
       this.allBoards$.next(newBoardList);
     });
   }
 
   getBoardsByUserId(id: string): Observable<BoardData[]> {
     this.http.get<BoardData[]>(`${BOARDSET_API}/${id}`).subscribe((data) => {
-      this.allBoards$.next(data)
-    })
+      this.allBoards$.next(data);
+    });
     return this.allBoards$;
-  };
+  }
 
   getBoardById(id: string): Observable<BoardData> {
-    return this.http.get<BoardData>(`${BOARDS_API}/${id}`)
+    return this.http.get<BoardData>(`${BOARDS_API}/${id}`);
   }
 
   getAllColumnsInBoard(id: string): Observable<GetColumnsModel[]> {
     this.http.get<GetColumnsModel[]>(`${BOARDS_API}/${id}/columns`).subscribe((data) => {
-      this.allColumns$.next(data)
-    })
+      this.allColumns$.next(data);
+    });
     return this.allColumns$;
   }
 
@@ -110,40 +98,40 @@ export class ApiService {
     this.http.post<GetColumnsModel>(`${BOARDS_API}/${id}/columns`, data).subscribe((data) => {
       const newColumnsList =  [...this.allColumns$.getValue(), data];
       this.allColumns$.next(newColumnsList);
-    })
+    });
   }
 
   updateColumn(boardId: string, columnId: string, data: UpdateColumnData) {
-    return  this.http.put<UpdateColumnData>(`${BOARDS_API}/${boardId}/columns/${columnId}`, data)
+    return  this.http.put<UpdateColumnData>(`${BOARDS_API}/${boardId}/columns/${columnId}`, data);
   }
 
 
   deleteColumnById(boardId: string, columnId: string): void {
-    this.http.delete<GetColumnsModel>(`${BOARDS_API}/${boardId}/columns/${columnId}`).subscribe((data) => {
-      const newColumnsList: GetColumnsModel[] = this.allColumns$.getValue().filter((column) => column._id !== columnId)
+    this.http.delete<GetColumnsModel>(`${BOARDS_API}/${boardId}/columns/${columnId}`).subscribe(() => {
+      const newColumnsList: GetColumnsModel[] = this.allColumns$.getValue().filter((column) => column._id !== columnId);
       this.allColumns$.next(newColumnsList);
-    })
+    });
   }
 
 
   getTasksInColumn(boardId: string, columnId: string): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`)
+    return this.http.get<TaskModel[]>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`);
   }
 
   createTask(boardId: string, columnId: string, data: TaskFormModel): Observable<TaskFormModel> {
-    return this.http.post<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`, data)
+    return this.http.post<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks`, data);
   }
 
   deleteTask(boardId: string, columnId: string, taskId: string): Observable<TaskFormModel> {
-    return this.http.delete<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`)
+    return this.http.delete<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`);
   }
 
   editTask(boardId: string, columnId: string, taskId: string, data: EditTaskModel): Observable<TaskFormModel> {
-    return this.http.put<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`, data)
+    return this.http.put<TaskFormModel>(`${BOARDS_API}/${boardId}/columns/${columnId}/tasks/${taskId}`, data);
   }
 
   updateTaskOrder(tasks: PatchTasks[]): Observable<TaskModel[]> {
-    const updatedTasks = tasks.map((task, index) => {
+    const updatedTasks = tasks.map((task) => {
       const { _id, columnId, order } = task;
       return {
         _id,
@@ -155,7 +143,7 @@ export class ApiService {
   }
 
   updateColumnsOrder(columns: PatchColumns[]) {
-    const updatedColumns: PatchColumns[] = columns.map((column, index) => {
+    const updatedColumns: PatchColumns[] = columns.map((column) => {
       const { _id, order } = column;
       return {
         _id,
@@ -166,7 +154,7 @@ export class ApiService {
   }
 
   updateColumns(columns: PatchColumns[]): Observable<GetColumnsModel[]> {
-    return this.updateColumnsOrder(columns)
+    return this.updateColumnsOrder(columns);
   }
 
   updateTaskColumns(tasks: PatchTasks[]): Observable<TaskModel[]> {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
 import {TaskModel} from "../../../boards/models/boards.model";
 import {TokenService} from "../../../auth/services/token.service";
@@ -26,7 +26,7 @@ export class EditTaskComponent {
   editTaskForm = new FormGroup({
     title: new FormControl(),
     description: new FormControl()
-  })
+  });
 
   editTask() {
     this.apiService.editTask(this.boardId, this.columnId, this.task._id, {
@@ -36,7 +36,7 @@ export class EditTaskComponent {
       userId: this.tokenService.getCurrentUserId(),
       columnId: this.columnId,
       users: []
-    }).subscribe()
+    }).subscribe();
     this.dialog.closeAll();
   }
 

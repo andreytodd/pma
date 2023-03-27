@@ -1,7 +1,7 @@
 <mat-toolbar class="custom-toolbar" id="header">
     <h1 routerLink="/">PMA</h1>
     <div class="header-controls-wrapper">
-      <div *ngIf="!(token | async)">
+      <div *ngIf="(token | async) === null">
         <ul>
           <li>
             <a routerLink="/auth/login">Log In</a>

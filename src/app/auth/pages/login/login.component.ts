@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit{
         this.apiService.getUsers().subscribe(
           (data) => {
             if (data && Array.isArray(data)) {
-              const currentUser: string = (data.find((user: User) => user.login === login))._id;
+              const currentUser: string = ((data.find((user: User) => user.login === login)) as User)._id;
               this.tokenService.saveUser(currentUser);
               this.router.navigate(['/boards']);
             } else {

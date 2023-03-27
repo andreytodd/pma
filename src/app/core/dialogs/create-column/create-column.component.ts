@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormArray, FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {ApiService} from "../../services/api.service";
 
@@ -19,7 +19,7 @@ export class CreateColumnComponent {
 
   createColumnForm = new FormGroup({
     title: new FormControl()
-  })
+  });
 
   createColumn() {
     if (!this.createColumnForm.value.title) {
@@ -28,7 +28,7 @@ export class CreateColumnComponent {
     this.apiService.createColumn(this.boardId, {
       title: this.createColumnForm.value.title,
       order: this.order
-    })
+    });
     this.dialog.closeAll();
   }
 

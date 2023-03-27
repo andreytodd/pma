@@ -5,7 +5,7 @@
   <div (click)="showModal()" class="boards-page__create-board">
     <mat-icon class="create-board__icon">add_circle</mat-icon>
   </div>
-  <app-board *ngFor="let board of (allBoards$ | async)" [board]="board" ></app-board>
+  <app-board class="app-board" *ngFor="let board of (allBoards$ | async)" [board]="board" ></app-board>
 </div>
 
 

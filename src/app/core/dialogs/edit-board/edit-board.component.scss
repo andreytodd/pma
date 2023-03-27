@@ -1,5 +1,5 @@
 .dialog {
-  width: 30vw;
+  min-width: 30vw;
   height: 60vh;
   display: flex;
   flex-direction: column;
@@ -13,6 +13,7 @@
   justify-content: center;
   background-color: #8BC6EC;
   align-items: center;
+  text-align: center;
 }
 
 .dialog-heading h4 {

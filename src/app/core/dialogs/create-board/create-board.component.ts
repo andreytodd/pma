@@ -21,11 +21,11 @@ export class CreateBoardComponent implements OnInit{
   ) {}
 
   ngOnInit() {
-    this.currentUserId =  this.tokenService.getCurrentUserId()
+    this.currentUserId =  this.tokenService.getCurrentUserId();
     this.apiService.getUsers().subscribe(data => {
       this.allUsers = data
-        .filter((user: User) => user._id !== this.currentUserId)
-    })
+        .filter((user: User) => user._id !== this.currentUserId);
+    });
   }
 
   createBoardForm = new FormGroup({
@@ -33,14 +33,14 @@ export class CreateBoardComponent implements OnInit{
     sharedUsers: new FormArray([
       this.createUser()
     ])
-  })
+  });
 
-  get sharedUsers() {return this.createBoardForm.get('sharedUsers') as FormArray}
+  get sharedUsers() {return this.createBoardForm.get('sharedUsers') as FormArray;}
 
   createUser() {
     return new FormGroup({
       login: new FormControl()
-    })
+    });
   }
 
   addUser() {
@@ -49,19 +49,19 @@ export class CreateBoardComponent implements OnInit{
 
   createNewBoard() {
     const userLogins = this.createBoardForm.value.sharedUsers?.map((user) => {
-      return user.login
-    })
+      return user.login;
+    });
     if(!this.createBoardForm.value.title) {
-      this.createBoardForm.value.title = 'New board without name'
+      this.createBoardForm.value.title = 'New board without name';
     }
     const users = this.allUsers
       .filter((user) => userLogins?.includes(user.login))
-      .map((user: User) => user._id)
+      .map((user: User) => user._id);
     this.apiService.createBoard({
       owner: this.tokenService.getCurrentUserId(),
       title: this.createBoardForm.value.title,
       users: users
-    })
+    });
     this.dialog.closeAll();
   }
 

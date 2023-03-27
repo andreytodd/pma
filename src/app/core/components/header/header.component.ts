@@ -17,12 +17,12 @@ export class HeaderComponent {
 
   ) {}
 
-  public token = this.tokenService.getToken()
+  public token = this.tokenService.getToken();
 
   signOut() {
     this.authService.signOut();
-    window.location.reload()
-    this.router.navigate([''])
+    window.location.reload();
+    this.router.navigate(['']);
   }
 
 }

@@ -27,8 +27,8 @@ export class CreateTaskComponent implements OnInit {
   ngOnInit() {
     this.apiService.getTasksInColumn(this.boardId, this.columnId).subscribe((data) => {
       this.allTasksArray = data;
-    })
-    this.userId = this.tokenService.getCurrentUserId()
+    });
+    this.userId = this.tokenService.getCurrentUserId();
   }
 
   createTaskForm = new FormGroup({
@@ -37,27 +37,21 @@ export class CreateTaskComponent implements OnInit {
     sharedUsers: new FormArray([
       this.createUser()
     ])
-  })
-
-  get sharedUsers() {return this.createTaskForm.get('sharedUsers') as FormArray}
+  });
 
   createUser() {
     return new FormGroup({
       login: new FormControl()
-    })
-  }
-
-  addUser() {
-    this.sharedUsers.push(this.createUser());
+    });
   }
 
   createNewTask() {
     if (!this.createTaskForm.value.title) {
-      alert('Enter title!')
-      return
+      alert('Enter title!');
+      return;
     }
     if (!this.createTaskForm.value.description) {
-      this.createTaskForm.value.description = 'No description'
+      this.createTaskForm.value.description = 'No description';
     }
     this.apiService.createTask(this.boardId, this.columnId, {
       title: this.createTaskForm.value.title,
@@ -65,7 +59,7 @@ export class CreateTaskComponent implements OnInit {
       userId: this.userId,
       users: [],
       order: this.allTasksArray.length
-    }).subscribe()
-    this.dialog.closeAll()
+    }).subscribe();
+    this.dialog.closeAll();
   }
 }

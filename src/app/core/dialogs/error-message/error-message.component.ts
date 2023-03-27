@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -15,7 +15,7 @@ export class ErrorMessageComponent {
   errorMessage!: string;
 
   close() {
-    this.dialog.closeAll()
+    this.dialog.closeAll();
   }
 
 }

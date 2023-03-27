@@ -1,5 +1,5 @@
 .dialog {
-  width: 30vw;
+  min-width: 30vw;
   height: 20vh;
   display: flex;
   flex-direction: column;
@@ -24,6 +24,7 @@
   align-items: center;
   height: 5vh;
   padding-left: 20px;
+  margin: 10px;
 }
 
 .dialog-buttons {

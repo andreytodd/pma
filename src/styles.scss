@@ -10,13 +10,16 @@ body {
   background-image: url("/assets/images/background-imge.png");
   background-size: cover;
   min-height: 100vh;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-y: hidden;
 }
 
 

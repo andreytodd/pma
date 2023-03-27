@@ -9,7 +9,6 @@ import {
 import {catchError, Observable, throwError} from 'rxjs';
 import {TokenService} from "../../auth/services/token.service";
 import {Router} from "@angular/router";
-import {subscriptionLogsToBeFn} from "rxjs/internal/testing/TestScheduler";
 import {ErrorMessageComponent} from "../dialogs/error-message/error-message.component";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -53,7 +52,7 @@ export class ApiInterceptor implements HttpInterceptor {
             // alert(error.message);
             return throwError(error.message);
           })
-        )
+        );
     } else {
       return next.handle(request);
     }

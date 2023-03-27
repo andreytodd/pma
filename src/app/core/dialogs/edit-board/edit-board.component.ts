@@ -24,11 +24,11 @@ export class EditBoardComponent implements OnInit {
   public boardTitle: string = '';
 
   ngOnInit() {
-    this.currentUserId =  this.tokenService.getCurrentUserId()
+    this.currentUserId =  this.tokenService.getCurrentUserId();
     this.apiService.getUsers().subscribe((data) => {
       this.allUsers = data
-        .filter((user: User) => user._id !== this.currentUserId)
-    })
+        .filter((user: User) => user._id !== this.currentUserId);
+    });
   }
 
   updateBoardForm = new FormGroup({
@@ -36,14 +36,14 @@ export class EditBoardComponent implements OnInit {
     sharedUsers: new FormArray([
       this.createUser()
     ])
-  })
+  });
 
-  get sharedUsers() {return this.updateBoardForm.get('sharedUsers') as FormArray}
+  get sharedUsers() {return this.updateBoardForm.get('sharedUsers') as FormArray;}
 
   createUser() {
     return new FormGroup({
       login: new FormControl()
-    })
+    });
   }
 
   addUser() {
@@ -51,37 +51,20 @@ export class EditBoardComponent implements OnInit {
   }
 
   updateBoard() {
-    // let arr: any[] | undefined = []
-    // if (this.updateBoardForm.value.sharedUsers?.[0].login !== null) {
-    //   arr = this.updateBoardForm.value.sharedUsers?.map(user => user.login)
-    // }
-
     const userLogins = this.updateBoardForm.value.sharedUsers?.map((user) => {
-      return user.login
-    })
+      return user.login;
+    });
     if(!this.updateBoardForm.value.title) {
-      this.updateBoardForm.value.title = 'Board without name'
+      this.updateBoardForm.value.title = 'Board without name';
     }
     const users = this.allUsers
       .filter((user) => userLogins?.includes(user.login))
-      .map((user: User) => user._id)
+      .map((user: User) => user._id);
     this.apiService.updateBoard(this.boardId, {
       owner: this.tokenService.getCurrentUserId(),
       title: this.updateBoardForm.value.title,
       users: users
-    })
-
-    // this.apiService.getUsers()
-    //   .subscribe((data) => {
-    //     let users: string[] = data
-    //       .filter((user: any) => arr?.includes(user.login))
-    //       .map((user: any) => user._id)
-    //     this.apiService.updateBoard(this.boardId, {
-    //       owner: this.tokenService.getCurrentUserId(),
-    //       title: this.updateBoardForm.value.title as string,
-    //       users: users
-    //     })
-    //   })
+    });
     this.dialog.closeAll();
   }
 }

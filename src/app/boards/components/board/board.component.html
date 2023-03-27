@@ -1,12 +1,17 @@
 <div class="boards-page__board" (click)="openBoardCard()">
-  <h4>{{board.title}}</h4>
-  <ng-container *ngIf="sharedUsers$ | async">
-    <p>This board is shared with {{sharedUsers$ | async}}</p>
-  </ng-container>
-  <ng-container *ngIf="sharedUsers$.getValue().length === 0">
-    <p>This is your private board</p>
-  </ng-container>
+  <div class="board__info">
+    <h4>{{board.title}}</h4>
+    <ng-container *ngIf="sharedUsers$ | async">
+      <p>This board is shared with {{sharedUsers$ | async}}</p>
+    </ng-container>
+    <ng-container *ngIf="sharedUsers$.getValue().length === 0">
+      <p>This is your private board</p>
+    </ng-container>
+  </div>
 
-  <mat-icon (click)="updateBoard(); $event.stopPropagation()">settings</mat-icon>
-  <mat-icon (click)="showConfirmationDialog(); $event.stopPropagation()">delete</mat-icon>
+  <div class="board__buttons">
+    <mat-icon class="icon" (click)="updateBoard(); $event.stopPropagation()">settings</mat-icon>
+    <mat-icon class="icon" (click)="showConfirmationDialog(); $event.stopPropagation()">delete</mat-icon>
+  </div>
+
 </div>

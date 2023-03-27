@@ -1,16 +1,16 @@
 <div class="dialog">
   <div class="dialog-heading">
-    <h4>Create new board</h4>
+    <h3>Create new board</h3>
   </div>
   <div class="dialog-form">
     <form [formGroup]="createBoardForm" (submit)="createNewBoard()">
-      <h3>Add board title</h3>
+      <p>Add board title</p>
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput formControlName="title">
       </mat-form-field>
 
-      <h3>Select shared users</h3>
+      <p>Select shared users</p>
       <div formArrayName="sharedUsers" *ngFor="let user of sharedUsers.controls; let i = index">
         <div [formGroupName]="i">
 

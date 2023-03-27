@@ -6,8 +6,7 @@ import {BehaviorSubject} from "rxjs";
 })
 export class ColumnIdService {
 
-  columnId: BehaviorSubject<any> = new BehaviorSubject<any>(0)
-  constructor() { }
+  columnId: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
 
 }

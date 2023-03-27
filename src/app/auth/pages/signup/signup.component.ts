@@ -48,30 +48,29 @@ export class SignupComponent implements OnInit {
 
   signUp(): void {
     if (this.newUserForm.valid) {
-      const {name, login, password} = this.newUserForm.value
+      const {name, login, password} = this.newUserForm.value;
       this.authService.signUp(name, login, password).subscribe(
         () => {
-          alert('Registration successful')
+          alert('Registration successful');
         },
         (error) => {
-          this.newUserForm.reset()
-          this.createDialog(error.message)
-          console.log(error)
+          this.newUserForm.reset();
+          this.createDialog(error.message);
         }
-      )
-      this.newUserForm.reset()
+      );
+      this.newUserForm.reset();
     } else {
-      this.createDialog('Invalid form')
-      this.newUserForm.reset()
+      this.createDialog('Invalid form');
+      this.newUserForm.reset();
     }
-    this.router.navigate(['/auth/signup'])
+    this.router.navigate(['/auth/signup']);
   }
   get form() {
     return this.newUserForm.controls;
   }
 
   createDialog(message: string) {
-    const dialogRef = this.dialog.open(ErrorMessageComponent)
-    dialogRef.componentInstance.errorMessage = message
+    const dialogRef = this.dialog.open(ErrorMessageComponent);
+    dialogRef.componentInstance.errorMessage = message;
   }
 }

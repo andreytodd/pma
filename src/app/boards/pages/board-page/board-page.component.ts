@@ -17,7 +17,7 @@ export class BoardPageComponent implements OnInit {
   boardId: string = this.activatedRoute.snapshot.params['id'];
   boardName!: string;
 
-  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([])
+  allColumns$: BehaviorSubject<GetColumnsModel[]> = new BehaviorSubject<GetColumnsModel[]>([]);
   allColumns!: GetColumnsModel[];
   constructor(
     private apiService: ApiService,
@@ -28,29 +28,25 @@ export class BoardPageComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.allColumns$ = this.apiService.getAllColumnsInBoard(this.boardId);
-    // this.allColumns$.subscribe((data) => {
-    //   this.allColumns = data;
-    // })
     this.apiService.getAllColumnsInBoard(this.boardId).subscribe((columns) => {
       this.allColumns$.next(columns);
-    })
+    });
     this.apiService.getBoardById(this.boardId).subscribe((board) => {
       this.boardName = board.title;
-    })
+    });
   }
 
   createColumn() {
     const dialogRef = this.dialog.open(CreateColumnComponent);
     dialogRef.componentInstance.boardId = this.boardId;
-    dialogRef.componentInstance.order = this.allColumns$.getValue().length
+    dialogRef.componentInstance.order = this.allColumns$.getValue().length;
   }
 
-  drop(event: CdkDragDrop<any>) {
+  drop(event: CdkDragDrop<GetColumnsModel>) {
 
     this.allColumns$.subscribe((columns) => {
       this.allColumns = columns;
-    })
+    });
 
     if (!this.allColumns) {
       return;

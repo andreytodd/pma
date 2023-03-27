@@ -11,12 +11,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   transition: all 0.3s ease-in-out;
 }
 
 .board-column__column:hover {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 .tasks-list {
@@ -55,7 +55,7 @@
 .delete-column-btn, .add-task-btn {
   height: 40%;
   width: 100%;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   font-size: 10px;
 }
 

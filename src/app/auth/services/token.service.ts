@@ -1,7 +1,5 @@
-import {Injectable, ViewChild} from '@angular/core';
-import {BehaviorSubject, Observable, of} from "rxjs";
-import {User} from "../models/auth.models";
-import {ApiService} from "../../core/services/api.service";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from "rxjs";
 import {Router} from "@angular/router";
 
 const TOKEN_KEY = 'token';
@@ -16,7 +14,7 @@ export class TokenService {
   saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
-    this.token$.next(token)
+    this.token$.next(token);
   }
 
   getToken(): BehaviorSubject<string | null> {
@@ -25,7 +23,7 @@ export class TokenService {
 
   signOut(): void {
     window.localStorage.clear();
-    this.router.navigate([''])
+    this.router.navigate(['']);
   }
 
 
@@ -34,8 +32,8 @@ export class TokenService {
     window.localStorage.setItem(USER_KEY, currentUser);
   }
 
-  getCurrentUserId(): any {
-    return window.localStorage.getItem(USER_KEY);
+  getCurrentUserId(): string {
+    return window.localStorage.getItem(USER_KEY) as string;
   }
 
 }

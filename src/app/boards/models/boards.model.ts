@@ -1,3 +1,5 @@
+import {User} from "../../auth/models/auth.models";
+
 export interface BoardFormData {
   title: string
   owner: string
@@ -8,7 +10,7 @@ export interface BoardData {
   _id: string
   title: string
   owner: string
-  users: string[] | []
+  users: string[]
 
 }
 

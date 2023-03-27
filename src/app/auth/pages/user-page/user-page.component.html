@@ -5,12 +5,12 @@
       <p>Login: {{currentUser$.getValue().login}}</p>
     </div>
     <div class="user-info__image">
-      <img src="assets/images/user-profile.jpg">
+      <img src="assets/images/user-profile.jpg" alt="user profile image">
     </div>
   </div>
 
-  <button (click)="editUser()">Edit profile</button>
-  <button (click)="showConfirmationDialog()">Delete user</button>
+  <button mat-raised-button (click)="editUser()">Edit profile</button>
+  <button mat-raised-button (click)="showConfirmationDialog()">Delete user</button>
 </div>
 
 

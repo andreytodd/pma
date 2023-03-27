@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SortPipe implements PipeTransform {
 
-  transform(array: any, field: string): any[] | undefined {
+  transform(array: any, field: string): any  {
     if (!Array.isArray(array)) {
       return;
     }

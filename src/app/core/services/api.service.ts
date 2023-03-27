@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
-import {EditUser, User} from "../../auth/models/auth.models";
+import {UserSignUp, User} from "../../auth/models/auth.models";
 import {BehaviorSubject, catchError, Observable, throwError} from "rxjs";
 import {
   BoardData,
@@ -55,7 +55,7 @@ export class ApiService {
     return this.currentUser$
   }
 
-  editUser(id: string, data: EditUser) {
+  editUser(id: string, data: UserSignUp) {
     this.http.put<User>(`${USERS_API}/${id}`, data).subscribe((user) => {
         this.currentUser$.next(user);
       }

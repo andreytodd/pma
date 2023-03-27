@@ -27,13 +27,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   transition: all 0.3s ease-in-out;
 }
 
 .board-page__create-column:hover {
   transform: scale(1.01, 1.01);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 board-page__create-column[title]:hover {

@@ -1,32 +1,32 @@
 <div class="dialog">
   <div class="dialog-heading">
-    <h4>Edit your profile</h4>
+    <h3>Edit your profile</h3>
   </div>
   <div >
     <form class="dialog-form"  [formGroup]="editUserForm" (submit)="onSubmit()">
-      <h3>Enter new name</h3>
+      <p>Enter new name</p>
       <mat-form-field>
         <mat-label>New name</mat-label>
         <input matInput type="text" formControlName="name" required>
       </mat-form-field>
 
-      <h3>Enter new login</h3>
+      <p>Enter new login</p>
       <mat-form-field>
         <mat-label>New login</mat-label>
         <input matInput type="text" formControlName="login" required>
       </mat-form-field>
 
-      <h3>Enter your current password</h3>
+      <p>Enter password to confirm changes</p>
       <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required>
+        <input matInput type="password" formControlName="password" (keydown.enter)="onSubmit()" required>
       </mat-form-field>
 
 
     </form>
   </div>
   <div class="dialog-buttons">
-    <button mat-raised-button type="submit">Submit</button>
+    <button mat-raised-button type="submit" (click)="onSubmit()">Submit</button>
   </div>
 
 </div>

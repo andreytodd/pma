@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit{
-  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{})
+  currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(<User>{});
 
   constructor(
     private apiService: ApiService,
@@ -25,7 +25,7 @@ export class UserPageComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.currentUser$ = this.apiService.getUserById(this.tokenService.getCurrentUserId())
+    this.currentUser$ = this.apiService.getUserById(this.tokenService.getCurrentUserId());
   }
 
   editUser() {
@@ -35,14 +35,15 @@ export class UserPageComponent implements OnInit{
   }
 
   deleteUser() {
-    this.apiService.deleteUser(this.tokenService.getCurrentUserId()).subscribe(() => {},
+    this.apiService.deleteUser(this.tokenService.getCurrentUserId()).subscribe(
+      (data) => data,
       error => alert(error.message),
       () => {
         this.tokenService.signOut();
         window.location.reload();
-        this.router.navigate([''])
+        this.router.navigate(['']);
       }
-    )
+    );
   }
 
   showConfirmationDialog() {
@@ -50,8 +51,8 @@ export class UserPageComponent implements OnInit{
     dialogRef.componentInstance.confirmationMessage = 'Are you sure you want to delete your profile?';
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteUser()
+        this.deleteUser();
       }
-    })
+    });
   }
 }

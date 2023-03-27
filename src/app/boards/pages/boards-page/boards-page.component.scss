@@ -17,13 +17,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   transition: all 0.3s ease-in-out;
 }
 
 .boards-page__create-board:hover {
   transform: scale(1.01, 1.01);
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
 
 .create-board__icon {
@@ -31,7 +31,7 @@
   width: 90%;
   height: 90%;
   font-size: 50px;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,5 +39,5 @@
 
 .boards-page__heading {
   margin-left: 2vw;
-  text-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }

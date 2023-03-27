@@ -60,7 +60,7 @@
       <input matInput type="password" formControlName="confirmPassword">
     </mat-form-field>
     <span class="alert-danger" *ngIf="(newUserForm.controls['password'].touched || submitted)
-    && newUserForm.errors?.['passwordMismatch'] " class="alert-danger">
+    && newUserForm.errors?.['passwordMismatch'] ">
         Passwords do not match
     </span>
 

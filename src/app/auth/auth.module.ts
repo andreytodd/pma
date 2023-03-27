@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import {AuthService} from "./services/auth.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import { AuthRoutingModule } from './auth-routing.module';
-import { UserPageComponent } from './pages/user-page/user-page.component'
+import { UserPageComponent } from './pages/user-page/user-page.component';
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -11,11 +12,12 @@ import { UserPageComponent } from './pages/user-page/user-page.component'
   declarations: [
     UserPageComponent
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+    ],
   providers: [AuthService]
 })
 export class AuthModule { }

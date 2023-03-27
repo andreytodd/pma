@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {ApiService} from "../../../core/services/api.service";
 import {ConfirmationDialogComponent} from "../../../core/dialogs/confirmation-dialog/confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -6,6 +6,7 @@ import {EditBoardComponent} from "../../../core/dialogs/edit-board/edit-board.co
 import {Router} from "@angular/router";
 import {User} from "../../../auth/models/auth.models";
 import {BehaviorSubject} from "rxjs";
+import {BoardData} from "../../models/boards.model";
 
 @Component({
   selector: 'app-board',
@@ -14,10 +15,9 @@ import {BehaviorSubject} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BoardComponent implements OnInit{
-  @Input() board: any
-  sharedUsers$: BehaviorSubject<string> = new BehaviorSubject<string>('')
-  sharedUsers!: string[]
-  allUsers!: User[]
+  @Input() board!: BoardData;
+  sharedUsers$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
 
   constructor(
     private apiService: ApiService,
@@ -31,18 +31,16 @@ export class BoardComponent implements OnInit{
         const sharedUsers = users
           .filter((user) => this.board.users.includes(user._id))
           .map((user) => {
-            return user.login
+            return user.login;
           })
-          .join(', ')
-      this.sharedUsers$.next(sharedUsers)
-
-    })
-
+          .join(', ');
+      this.sharedUsers$.next(sharedUsers);
+    });
   }
 
 
   deleteBoard() {
-    this.apiService.deleteBoard(this.board._id)
+    this.apiService.deleteBoard(this.board._id);
   }
 
   updateBoard() {
@@ -53,12 +51,12 @@ export class BoardComponent implements OnInit{
 
   showConfirmationDialog() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
-    dialogRef.componentInstance.confirmationMessage = 'Are you sure want to delete this board?'
+    dialogRef.componentInstance.confirmationMessage = 'Are you sure want to delete this board?';
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.deleteBoard()
+        this.deleteBoard();
       }
-    })
+    });
   }
 
   openBoardCard(): void {

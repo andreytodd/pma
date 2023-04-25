@@ -22,8 +22,18 @@ A web browser such as Google Chrome, Mozilla Firefox, or Safari An internet conn
 
 - Start the backend https://github.com/rolling-scopes-school/final-task-backend
 - In the app file, run ng serve to start the app or open deployed project in the browser: https://andreytodd.github.io/pma/
-- sign up/ log in to the app
+- Sign up/ log in to the app
 
 ## Conclusion
 
 The project management application is a powerful tool for managing projects and collaborating with team members. With its ability to create boards, columns, and tasks, drag and drop files and columns, and share boards with other users, it is an essential tool for any project manager or team leader.
+
+## Used technologies
+
+- Angular
+- SPA - routing module
+- Typescript
+- RxJS library
+- Angular material library
+- Authorization and token services
+- Angular - eslint

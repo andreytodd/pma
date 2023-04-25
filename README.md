@@ -1,27 +1,30 @@
-# Pma
+## Project Management Application Readme File
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1.
+This is a project management application that allows users to log in or sign out, create different boards, and share them with other users. Within each board, users can create columns and tasks, drag and drop files within columns, between columns, and even drag and drop columns themselves. This readme file provides an overview of the application's features, how to use it, and how to contribute to the project.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The project management application has the following features:
 
-## Code scaffolding
+User authentication and authorization 
+Ability to create and manage multiple boards 
+Ability to create and manage multiple columns within each board 
+Ability to create and manage multiple tasks within each column 
+Ability to drag and drop files within columns and between columns 
+Ability to drag and drop columns within boards 
+Ability to share boards with other users 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Getting Started 
 
-## Build
+To use the project management application, you will need to have the following:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+A web browser such as Google Chrome, Mozilla Firefox, or Safari An internet connection To get started with the application, follow these steps:
 
-## Running unit tests
+start the backend https://github.com/rolling-scopes-school/final-task-backend
+in the app file, run ng serve to start the app or open deployed project in the browser: https://andreytodd.github.io/pma/
+project commit history is in my personal repo: https://github.com/andreytodd/pma
+sign up/ log in to the app
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Conclusion
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The project management application is a powerful tool for managing projects and collaborating with team members. With its ability to create boards, columns, and tasks, drag and drop files and columns, and share boards with other users, it is an essential tool for any project manager or team leader.

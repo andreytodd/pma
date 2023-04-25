@@ -7,12 +7,12 @@ This is a project management application that allows users to log in or sign out
 The project management application has the following features:
 
 User authentication and authorization 
-Ability to create and manage multiple boards 
-Ability to create and manage multiple columns within each board 
-Ability to create and manage multiple tasks within each column 
-Ability to drag and drop files within columns and between columns 
-Ability to drag and drop columns within boards 
-Ability to share boards with other users 
+- Ability to create and manage multiple boards 
+- Ability to create and manage multiple columns within each board 
+- Ability to create and manage multiple tasks within each column 
+- Ability to drag and drop files within columns and between columns 
+- Ability to drag and drop columns within boards 
+- Ability to share boards with other users 
 
 ## Getting Started 
 
@@ -20,10 +20,9 @@ To use the project management application, you will need to have the following:
 
 A web browser such as Google Chrome, Mozilla Firefox, or Safari An internet connection To get started with the application, follow these steps:
 
-start the backend https://github.com/rolling-scopes-school/final-task-backend
-in the app file, run ng serve to start the app or open deployed project in the browser: https://andreytodd.github.io/pma/
-project commit history is in my personal repo: https://github.com/andreytodd/pma
-sign up/ log in to the app
+- Start the backend https://github.com/rolling-scopes-school/final-task-backend
+- In the app file, run ng serve to start the app or open deployed project in the browser: https://andreytodd.github.io/pma/
+- sign up/ log in to the app
 
 ## Conclusion
 
